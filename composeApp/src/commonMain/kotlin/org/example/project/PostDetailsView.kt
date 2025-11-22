@@ -1,7 +1,5 @@
-package org.example.project.views
+package org.example.project
 
-import androidx.compose.material3.FilterChip
-import androidx.compose.material3.Icon
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,10 +26,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +38,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
@@ -64,14 +60,15 @@ import kotlin.time.Instant
 @OptIn(ExperimentalTime::class)
 @Preview
 @Composable
-fun PostDetailView(
+fun PostDetailsView(
     title: String,
     description: String,
     labels: List<String>,
     upVote: Int,
     downVote: Int,
     createDate: Instant = Clock.System.now(),
-) {
+    navController: NavHostController
+    ) {
     MobileAppTheme {
         Card(
             shape = MaterialTheme.shapes.small,
@@ -165,7 +162,7 @@ fun PostDetailView(
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     )
                 }
-
+                
                 // Content Section
                 Column(
                     modifier = Modifier
@@ -217,11 +214,11 @@ fun PostDetailView(
                         style = MaterialTheme.typography.bodyMedium,
                         lineHeight = 20.sp
                     )
-                }
+                    }
 
+                }
             }
         }
-    }
 }
 
 

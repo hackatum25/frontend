@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.navigation.NavHostController
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
@@ -102,7 +103,7 @@ fun Post(modifier: Modifier = Modifier,
          voteState: VoteState = VoteState.NONE,
          onUpClick: (() -> Unit)? = null,
          onDownClick: (() -> Unit)? = null,
-         onCardClick: (() -> Unit)? = null,) {
+         onCardClick: (() -> Unit),) {
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = modifier.fillMaxWidth(),
@@ -113,7 +114,7 @@ fun Post(modifier: Modifier = Modifier,
             containerColor = MaterialTheme.colorScheme.primaryContainer,
         ),
     ) {
-        Column(modifier = Modifier.clickable(onClick = { })) {
+        Column(modifier = Modifier.clickable(onClick = { onCardClick()})) {
             Row(
                 modifier = Modifier
                     .padding(16.dp)
