@@ -2,6 +2,7 @@ package org.example.project
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,7 +27,9 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -55,6 +59,33 @@ import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
+fun formatTimestamp(timestamp: String): String {
+    return try {
+        // Assuming format like "2024-12-15T14:30:00Z"
+        val parts = timestamp.split("T")
+        val datePart = parts[0] // "2024-12-15"
+        val timePart = parts[1].substringBefore(".").substringBefore("Z") // "14:30:00"
+
+        val dateComponents = datePart.split("-")
+        val year = dateComponents[0]
+        val month = when (dateComponents[1]) {
+            "01" -> "Jan"; "02" -> "Feb"; "03" -> "Mar"; "04" -> "Apr"
+            "05" -> "May"; "06" -> "Jun"; "07" -> "Jul"; "08" -> "Aug"
+            "09" -> "Sep"; "10" -> "Oct"; "11" -> "Nov"; "12" -> "Dec"
+            else -> dateComponents[1]
+        }
+        val day = dateComponents[2]
+
+        val timeComponents = timePart.split(":")
+        val hour = timeComponents[0]
+        val minute = timeComponents[1]
+
+        "$month $day, $year at ${hour.toInt()}:$minute" // "Dec 15, 2024 at 14:30"
+    } catch (e: Exception) {
+        "Invalid date"
+    }
+}
+
 @OptIn(ExperimentalTime::class)
 @Preview
 @Composable
@@ -64,7 +95,7 @@ fun PostDetailsView(
     labels: List<String>,
     upVote: Int,
     downVote: Int,
-    createDate: Instant = Clock.System.now(),
+    createDate: Instant,
     navController: NavHostController
     ) {
         Card(
@@ -101,44 +132,71 @@ fun PostDetailsView(
                 }
 
                 Row(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp)
-                        .padding(bottom = 16.dp)
-                        .padding(top = 16.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(all = 16.dp),
+                    verticalAlignment = Alignment.Top
                 ) {
-                    Text(
-                        text = title,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Row {
+                    var expanded = remember { mutableStateOf(false) }
+                    var isOverflowing = remember { mutableStateOf(false) }
+
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .clickable { if (isOverflowing.value) expanded.value = !expanded.value }
+                    ) {
+                        Text(
+                            text = title,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            maxLines = if (expanded.value) Int.MAX_VALUE else 5,
+                            overflow = TextOverflow.Ellipsis,
+                            onTextLayout = { textLayoutResult ->
+                                isOverflowing.value = textLayoutResult.hasVisualOverflow
+                            }
+                        )
+
+                        // Show clickable dots when text overflows
+                        if (isOverflowing.value && (!expanded.value)) {
+                            Text(
+                                text = "...",
+                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .align(Alignment.BottomEnd)
+                                    .clickable { expanded.value = true }
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    // Voting section
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             painter = painterResource(Res.drawable.arrow_upward_24px),
                             contentDescription = "Arrow up",
                             tint = MaterialTheme.colorScheme.primary
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
-
-                        // Vote count
+                        Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = upVote.toString(), // Replace with your actual vote count variable
+                            text = upVote.toString(),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurface
                         )
-
-                        Spacer(modifier = Modifier.width(8.dp))
-
+                        Spacer(modifier = Modifier.width(12.dp))
                         Icon(
                             painter = painterResource(Res.drawable.arrow_downward_24px),
                             contentDescription = "Arrow down",
                             tint = MaterialTheme.colorScheme.primary
                         )
+                        Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            text = downVote.toString(), // Replace with your actual vote count variable
+                            text = downVote.toString(),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurface
@@ -149,12 +207,12 @@ fun PostDetailsView(
                 Row {
                     Icon(
                         painter = painterResource(Res.drawable.nest_clock_farsight_analog_24px),
-                        contentDescription = "Arrow down",
+                        contentDescription = "Clock",
                         tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.padding(horizontal = 16.dp)
                     )
                     Text(
-                        text = createDate.toString(),
+                        text = formatTimestamp(createDate.toString()),
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     )
@@ -170,7 +228,7 @@ fun PostDetailsView(
                     Text(
                         text = "Lables",
                         style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                        lineHeight = 20.sp,
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
 
@@ -200,17 +258,19 @@ fun PostDetailsView(
                     }
 
                     Text(
-                        text = description,
+                        text = "Description",
                         style = MaterialTheme.typography.titleMedium,
+                        lineHeight = 20.sp,
+                        modifier = Modifier.padding(bottom = 16.dp)
+                    )
+
+                    Text(
+                        text = description,
+                        style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                         modifier = Modifier.padding(bottom = 16.dp)
                     )
-                    // Body text
-                    Text(
-                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-                        style = MaterialTheme.typography.bodyMedium,
-                        lineHeight = 20.sp
-                    )
+
                     }
 
                 }
