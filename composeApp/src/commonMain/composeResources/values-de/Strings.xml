@@ -31,6 +31,10 @@
     <string name="filter_events">Veranstaltungen</string>
 
     <string name="logging">Anmeldung</string>
+    <string name="labels">Labels</string>
+    <string name="description">Beschreibung</string>
+
+
 
     <string name="post_publish">Veröffentlichen</string>
 </resources>

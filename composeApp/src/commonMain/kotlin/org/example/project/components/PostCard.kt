@@ -129,21 +129,21 @@ fun PostCard(modifier: Modifier = Modifier,
 
                 if(isOfficial){
                     SuggestionChip(
-    onClick = { /*...*/ },
-    label = {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                painter = painterResource(Res.drawable.verified_24px),
-                contentDescription = "verified icon",
-                modifier = Modifier.size(18.dp), // adjust to match text height
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-            Text(stringResource(Res.string.badge_official))
-        }
-    },
-    modifier = Modifier
-        .align(Alignment.CenterVertically)
-        .heightIn(min = 32.dp)
+                        onClick = { /*...*/ },
+                        label = {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    painter = painterResource(Res.drawable.verified_24px),
+                                    contentDescription = "verified icon",
+                                    modifier = Modifier.size(18.dp), // adjust to match text height
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(stringResource(Res.string.badge_official))
+                            }
+                        },
+                        modifier = Modifier
+                        .align(Alignment.CenterVertically)
+                        .heightIn(min = 32.dp)
                     )
                 }
             }
