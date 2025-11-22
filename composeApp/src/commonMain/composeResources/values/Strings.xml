@@ -7,6 +7,7 @@
 
     <string name="navbar_feed">Feed</string>
     <string name="navbar_profile">Profile</string>
+    <string name="navbar_create_post">New Post</string>
 
     <string name="badge_official">Official</string>
 

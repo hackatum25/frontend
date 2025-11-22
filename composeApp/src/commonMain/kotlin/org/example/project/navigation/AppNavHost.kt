@@ -23,7 +23,7 @@ import kotlin.time.Instant
 @OptIn(ExperimentalTime::class)
 @Composable
 fun AppNavHost(navController: NavHostController = rememberNavController(), isNavbarVisible: MutableState<Boolean>) {
-    NavHost(navController = navController, startDestination = "login") {
+        NavHost(navController = navController, startDestination = "feed") {
         composable("feed") {
             FeedView(navController)
         }

@@ -32,6 +32,7 @@ import org.example.project.generated.city_munich_logo
 import org.example.project.generated.martinsried
 import org.example.project.navigation.AppNavHost
 import org.example.project.navigation.BottomNavigation
+import org.example.project.navigation.TopNavigation
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
 import kotlin.time.ExperimentalTime
@@ -47,11 +48,7 @@ fun App(modifier: Modifier = Modifier) {
 
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text("Your Feed")
-                    }
-                )
+                TopNavigation(navController)
             },
             bottomBar = {
                 if(isNavbarVisible.value) {
