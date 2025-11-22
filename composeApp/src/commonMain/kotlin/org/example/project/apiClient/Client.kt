@@ -34,7 +34,8 @@ object Client{
         return response.status.value
     }
 
-    suspend fun createRating(postId: Int, rating: Rating) {
+    suspend fun createRating(postId: Int, ratingVal: Int) {
+        val rating = Rating(postId, ratingVal)
         client.post("${SERVER_URL}/posts/${postId}/vote") {
             setBody(rating)
         }
