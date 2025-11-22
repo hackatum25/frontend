@@ -42,9 +42,11 @@ import androidx.compose.ui.unit.Dp
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
+import org.example.project.generated.badge_official
 import org.example.project.generated.history_24px
 import org.example.project.generated.person_24px
 import org.example.project.generated.swap_vert_24px
+import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Clock
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.days
@@ -149,7 +151,7 @@ fun Post(modifier: Modifier = Modifier,
                 if(isOfficial){
                     SuggestionChip(
                         onClick = { /*...*/ },
-                        label = { Text("Official") },
+                        label = { Text(stringResource(Res.string.badge_official)) },
                         modifier = Modifier
                             .align(Alignment.CenterVertically)
                             .heightIn(min = 32.dp) // keep chip compact

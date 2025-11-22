@@ -4,4 +4,17 @@
     <string name="de">Deutsch</string>
     <string name="app_language">App Language: %1$s</string>
     <string name="change_lang">Change Language</string>
+
+    <string name="navbar_feed">Feed</string>
+    <string name="navbar_profile">Profile</string>
+
+    <string name="badge_official">Official</string>
+
+    <string name="duration_short_years">y</string>
+    <string name="duration_short_months">mo</string>
+    <string name="duration_short_days">d</string>
+    <string name="duration_short_hours">h</string>
+    <string name="duration_short_minutes">m</string>
+    <string name="duration_short_seconds">s</string>
+    <string name="duration_short_just_now">now</string>
 </resources>

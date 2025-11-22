@@ -6,9 +6,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.material3.Button
+import androidx.compose.material3.FabPosition
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,9 +40,15 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 @Composable
 @Preview
-fun App() {
-        MobileAppTheme {
-            var showContent by remember { mutableStateOf(false) }
+fun App(modifier: Modifier = Modifier) {
+    MobileAppTheme {
+        Scaffold(
+            bottomBar = { BottomNavigation() },
+            floatingActionButton = {
+                ActionButton(onClick = {})
+            },
+            floatingActionButtonPosition = FabPosition.End, // or Center
+        ) { contentPadding ->                    // receive padding
             Column(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
@@ -59,23 +68,7 @@ fun App() {
                     onDownClick = { /*...*/ },
                     onCardClick = { /*...*/ }
                 )
-                Button(onClick = { showContent = !showContent }) {
-                    Text("Click you!")
-                }
-                AnimatedVisibility(showContent) {
-                    val greeting = remember { Greeting().greet() }
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Image(painterResource(Res.drawable.compose_multiplatform), null)
-                        //Text("Compose: $greeting", color = MaterialTheme.colorScheme.onBackground)
-                        Text(
-                            stringResource(Res.string.hello), color = MaterialTheme.colorScheme.onBackground,
-                        )
-                    }
-                }
             }
         }
-    
+    }
 }
