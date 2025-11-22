@@ -8,10 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import org.example.project.apiClient.Client
 import org.example.project.generated.Res
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.martinsried
@@ -26,10 +28,11 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 @Preview
 @Composable
-fun PostList(modifier: Modifier, navController: NavHostController){
-    val myData: List<ExtendedPost> = listOf(ExtendedPost("Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
-        TimeZone.currentSystemDefault())
-        , 0, 420, -1 ))
+fun PostList(modifier: Modifier, navController: NavHostController, client: Client){
+    val myData: List<ExtendedPost> = runBlocking {client.getPosts()}
+    // val myData: List<ExtendedPost> = listOf(ExtendedPost("Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
+    //    TimeZone.currentSystemDefault())
+    //    , 0, 420, -1 ))
     LazyColumn {
         items(myData) { item ->
             PostCard(

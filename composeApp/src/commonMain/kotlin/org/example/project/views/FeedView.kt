@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
+import org.example.project.apiClient.Client
 import org.example.project.components.PostList
 import org.example.project.components.TagFilter
 import org.example.project.components.VoteState
@@ -37,7 +38,7 @@ import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 @Composable
-fun FeedView(navController: NavHostController) {
+fun FeedView(navController: NavHostController, client: Client) {
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
@@ -46,6 +47,6 @@ fun FeedView(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TagFilter()
-        PostList(Modifier, navController)
+        PostList(Modifier, navController, client)
     }
 }

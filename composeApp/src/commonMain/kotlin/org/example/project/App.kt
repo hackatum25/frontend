@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import org.example.project.apiClient.Client
 import org.example.project.components.ActionButton
 import org.example.project.components.VoteState
 import org.jetbrains.compose.resources.painterResource
@@ -35,6 +36,7 @@ import kotlin.time.ExperimentalTime
 @Preview
 fun App(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
+    val client = Client()
 
     MobileAppTheme {
         Scaffold(
@@ -44,7 +46,7 @@ fun App(modifier: Modifier = Modifier) {
             },
             floatingActionButtonPosition = FabPosition.End, // or Center
         ) { contentPadding ->                    // receive padding
-            AppNavHost(navController)
+            AppNavHost(navController, client)
         }
     }
 }
