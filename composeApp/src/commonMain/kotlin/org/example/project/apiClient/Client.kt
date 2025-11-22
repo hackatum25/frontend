@@ -8,9 +8,12 @@ import io.ktor.client.request.get
 import io.ktor.client.plugins.cookies.*
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
 import org.example.project.model.ExtendedPost
 import org.example.project.model.Post
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
 import org.example.project.model.Rating
 import org.example.project.model.User
 
@@ -27,8 +30,9 @@ object Client{
             println("No username provided")
             return
         } else {
-            val response = client.post("${SERVER_URL}/login") {
+            val response = client.post("${SERVER_URL}/user") {
                 setBody(User(username = user))
+                contentType(ContentType.Application.Json)
             }
         }
     }
