@@ -35,7 +35,7 @@ fun PostList(modifier: Modifier, navController: NavHostController) {
                 votesCount = 67,
                 onUpClick = { /*...*/ },
                 onDownClick = { /*...*/ },
-                onCardClick = { navController.navigate("postDetails") },
+                onCardClick = { navController.navigate("postDetails/Hello%20World/This%20is%20a%20test%20post/kotlin,compose,multiplatform/42/3/1698134400000") },
             )
         }
     }

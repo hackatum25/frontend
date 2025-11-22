@@ -112,7 +112,7 @@ fun PostDetailsView(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Headline here",
+                        text = title,
                         color = MaterialTheme.colorScheme.primary,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
@@ -210,12 +210,11 @@ fun PostDetailsView(
                     )
                     // Body text
                     Text(
-                        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                        text = description,
                         style = MaterialTheme.typography.bodyMedium,
                         lineHeight = 20.sp
                     )
                     }
-
                 }
             }
         }
