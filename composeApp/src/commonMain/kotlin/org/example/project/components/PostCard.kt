@@ -2,8 +2,6 @@ package org.example.project.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -26,13 +23,13 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.navigation.NavHostController
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
@@ -92,9 +89,9 @@ fun formatAge(time: Duration): String {
 @OptIn(ExperimentalTime::class)
 @Composable
 @Preview
-fun Post(modifier: Modifier = Modifier,
+fun PostCard(modifier: Modifier = Modifier,
          avatar: Painter = painterResource(Res.drawable.person_24px),
-         title: String,
+         title: String, description: String,
          isOfficial: Boolean = false,
          mainImage: Painter? = null,
          votesCount: Int = 420,
@@ -102,7 +99,7 @@ fun Post(modifier: Modifier = Modifier,
          voteState: VoteState = VoteState.NONE,
          onUpClick: (() -> Unit)? = null,
          onDownClick: (() -> Unit)? = null,
-         onCardClick: (() -> Unit)? = null,) {
+         onCardClick: (() -> Unit),) {
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = modifier.fillMaxWidth(),
@@ -113,10 +110,10 @@ fun Post(modifier: Modifier = Modifier,
             containerColor = MaterialTheme.colorScheme.primaryContainer,
         ),
     ) {
-        Column(modifier = Modifier.clickable(onClick = { })) {
+        Column(modifier = Modifier.clickable(onClick = { onCardClick()})) {
             Row(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp, vertical = 10.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -164,7 +161,7 @@ fun Post(modifier: Modifier = Modifier,
                 )
             }
             Text(
-                text = "asdfasdf asdfasdf asdfasdf asdfasdf asdfasdf asdfasfd asdfasdf asdffassome short stuff here aaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaa",
+                text = description,
                 style = MaterialTheme.typography.bodyMedium,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,

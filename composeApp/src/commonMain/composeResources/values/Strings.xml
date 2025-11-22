@@ -26,4 +26,6 @@
     <string name="filter_environment">Environment</string>
     <string name="filter_finances">Finances</string>
     <string name="filter_events">Events</string>
+
+    <string name="logging">Log in</string>
 </resources>

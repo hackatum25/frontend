@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.example.project.components.ActionButton
-import org.example.project.components.Post
 import org.example.project.components.VoteState
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

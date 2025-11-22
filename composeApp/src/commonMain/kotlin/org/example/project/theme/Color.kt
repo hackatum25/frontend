@@ -11,6 +11,7 @@ val Surface = Color(0xFFFEF7FF)
 val OnSurface = Color(0xFF1D1B20)
 val Background = Color(0xFFFEF7FF)
 val OnBackground = Color(0xFF1D1B20)
+val PrimaryContainer = Color(0xFFEADDFF)
 
 val PrimaryDark = Color(0xFFD0BCFF)
 val OnPrimaryDark = Color(0xFF381E72)
@@ -21,3 +22,5 @@ val SurfaceDark = Color(0xFF141218)
 val OnSurfaceDark = Color(0xFFE6E0E9)
 val BackgroundDark = Color(0xFF141218)
 val OnBackgroundDark = Color(0xFFE6E0E9)
+val PrimaryContainerDark = Color(0xFF4F378B)
+

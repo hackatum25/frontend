@@ -25,4 +25,7 @@
     <string name="filter_environment">Umwelt</string>
     <string name="filter_finances">Finanzen</string>
     <string name="filter_events">Veranstaltungen</string>
+
+    <string name="logging">Anmeldung</string>
+
 </resources>
