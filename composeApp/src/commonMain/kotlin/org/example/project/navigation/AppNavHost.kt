@@ -1,6 +1,7 @@
 package org.example.project.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,14 +18,16 @@ import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 @Composable
-fun AppNavHost(navController: NavHostController = rememberNavController()) {
-    // runBlocking {Client.login("test", "test")}
+fun AppNavHost(navController: NavHostController = rememberNavController(), isNavbarVisible: MutableState<Boolean>) {
     NavHost(navController = navController, startDestination = "feed") {
         composable("feed") {
             FeedView(navController)
         }
         composable("profile") {
             ProfileView(navController)
+        }
+        composable("createPost") {
+            CreatePostView(navController, isNavbarVisible)
         }
         /*
         composable(

@@ -36,16 +36,22 @@ import kotlin.time.ExperimentalTime
 @Preview
 fun App(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
+    val isNavbarVisible = remember { mutableStateOf(true) }
 
     MobileAppTheme {
         Scaffold(
-            bottomBar = { BottomNavigation(navController) },
+            bottomBar = {
+                if(isNavbarVisible.value) {
+                BottomNavigation(navController)
+                } },
             floatingActionButton = {
-                ActionButton(onClick = {})
+                ActionButton(onClick = {
+                    isNavbarVisible.value=false
+                    navController.navigate("createPost")})
             },
             floatingActionButtonPosition = FabPosition.End, // or Center
-        ) { contentPadding ->                    // receive padding
-            AppNavHost(navController)
-        }
+        ) {
+                AppNavHost(navController, isNavbarVisible)
+            }
     }
 }
