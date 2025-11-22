@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
-import org.example.project.components.Post
 import org.example.project.components.PostList
 import org.example.project.components.TagFilter
 import org.example.project.components.VoteState

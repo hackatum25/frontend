@@ -8,9 +8,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import org.example.project.generated.Res
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.martinsried
+import org.example.project.model.ExtendedPost
+import org.example.project.model.Post
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
@@ -20,19 +26,26 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 @Preview
 @Composable
-fun PostList(modifier: Modifier, navController: NavHostController) {
-    val myData = listOf("Hello,", "world!", "fasdfa", "sada")
+fun PostList(modifier: Modifier, navController: NavHostController){
+    val myData: List<ExtendedPost> = listOf(ExtendedPost("Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
+        TimeZone.currentSystemDefault())
+        , 0, 420, -1 ))
     LazyColumn {
         items(myData) { item ->
-            Post(
-                title = item,
+            PostCard(
+                title = item.title,
+                description = item.description,
                 mainImage = painterResource(Res.drawable.martinsried),
                 isOfficial = true,
-                voteState = VoteState.UP,
+                voteState = when (item.ownRating) {
+                    1  -> VoteState.UP
+                    0  -> VoteState.NONE
+                    -1 -> VoteState.DOWN
+                    else -> VoteState.NONE},
                 avatar = painterResource(Res.drawable.city_munich_logo),
-                createdAt = Clock.System.now().minus(4.days),
+                createdAt = item.createdAt.toInstant(TimeZone.currentSystemDefault()),
                 modifier = modifier.padding(bottom = 9.dp),
-                votesCount = 67,
+                votesCount = item.upvoteCount-item.downvoteCount,
                 onUpClick = { /*...*/ },
                 onDownClick = { /*...*/ },
                 onCardClick = { navController.navigate("postDetails") },
