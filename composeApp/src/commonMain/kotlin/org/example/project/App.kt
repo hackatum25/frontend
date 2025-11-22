@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import org.example.project.apiClient.Client
 import org.example.project.components.ActionButton
 import org.example.project.components.VoteState
 import org.jetbrains.compose.resources.painterResource

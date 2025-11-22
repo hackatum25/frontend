@@ -12,6 +12,7 @@ import org.example.project.model.ExtendedPost
 import org.example.project.model.Post
 import io.ktor.serialization.kotlinx.json.json
 import org.example.project.model.Rating
+import org.example.project.model.User
 
 object Client{
     val client: HttpClient = HttpClient(CIO) {
@@ -21,6 +22,16 @@ object Client{
         install(HttpCookies)
     }
 
+    suspend fun login(user: String?, password: String?) {
+        if (user == null) {
+            println("No username provided")
+            return
+        } else {
+            val response = client.post("${SERVER_URL}/login") {
+                setBody(User(username = user))
+            }
+        }
+    }
 
     suspend fun getPosts(): List<ExtendedPost> {
         val posts: List<ExtendedPost> = client.get("${SERVER_URL}/posts").body()

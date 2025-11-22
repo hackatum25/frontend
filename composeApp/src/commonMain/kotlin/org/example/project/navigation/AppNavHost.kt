@@ -2,13 +2,10 @@ package org.example.project.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import org.example.project.PostDetailsView
-//import org.example.project.PostDetailsView
 import org.example.project.views.*
 import org.example.project.views.FeedView
 import org.example.project.views.ProfileView
