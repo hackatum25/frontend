@@ -19,7 +19,6 @@ fun FeedView(navController: NavHostController) {
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
-            .safeContentPadding()
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
