@@ -29,6 +29,9 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
         composable("createPost") {
             CreatePostView(navController, isNavbarVisible)
         }
+        composable("login"){
+            LoginView(navController, isNavbarVisible)
+        }
         /*
         composable(
             "posts/{postId}",

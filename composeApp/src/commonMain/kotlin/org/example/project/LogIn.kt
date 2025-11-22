@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,7 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+import org.example.project.apiClient.Client
 import org.example.project.generated.Res
 import org.example.project.generated.badge_official
 import org.example.project.generated.logging
@@ -39,9 +44,8 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun LoginScreen(
-    onUsernameChange: (String) -> Unit,
-    onPasswordChange: (String) -> Unit,
-    onSignIn: (String, String) -> Unit,
+    navController: NavHostController = rememberNavController()
+    , isNavbarVisible: MutableState<Boolean>
 ) {
     val username = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -65,7 +69,6 @@ fun LoginScreen(
             value = username.value,
             onValueChange = { newUsername ->
                 username.value = newUsername
-                onUsernameChange(newUsername)
             },
             label = { Text("Username") },
             singleLine = true,
@@ -78,7 +81,6 @@ fun LoginScreen(
             value = password.value,
             onValueChange = {newPassword ->
                 password.value = newPassword
-                onPasswordChange(newPassword)
             },
             label = { Text("Password") },
             singleLine = true,
@@ -89,7 +91,11 @@ fun LoginScreen(
         Spacer(Modifier.height(24.dp))
 
         Button(
-            onClick = {},
+            onClick = {
+                runBlocking {Client.login(username.value, password.value)}
+                isNavbarVisible.value = true
+                navController.navigate("feed")
+                      },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Login")
