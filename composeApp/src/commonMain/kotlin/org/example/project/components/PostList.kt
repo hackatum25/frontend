@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import io.ktor.http.escapeIfNeeded
+import io.ktor.util.escapeHTML
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -24,6 +26,10 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
+
+fun escapeWhitespace(s: String): String {
+    return s.replace(" ", "%20")
+}
 
 @OptIn(ExperimentalTime::class)
 @Preview
@@ -52,7 +58,7 @@ fun PostList(modifier: Modifier, navController: NavHostController){
                 votesCount = item.upvoteCount-item.downvoteCount,
                 onUpClick = { MainScope().launch(Dispatchers.Default) { createRating(item.id, 1) }},
                 onDownClick = { MainScope().launch(Dispatchers.Default) { createRating(item.id, -1) } },
-                onCardClick = { navController.navigate("postDetails/${item.title}/${item.description}/Test,KeineAhnung/${item.upvoteCount}/${item.downvoteCount}/${item.createdAt}") },
+                onCardClick = { navController.navigate("postDetails/${escapeWhitespace(item.title)}/${escapeWhitespace(item.description)}/Test,KeineAhnung/${item.upvoteCount}/${item.downvoteCount}/${item.createdAt.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()}") },
             )
         }
     }
