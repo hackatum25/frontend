@@ -1,4 +1,4 @@
-package org.example.project
+package org.example.project.components
 
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon

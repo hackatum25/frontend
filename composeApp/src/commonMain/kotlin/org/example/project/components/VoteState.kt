@@ -1,4 +1,4 @@
-package org.example.project
+package org.example.project.components
 
 enum class VoteState {
     UP, DOWN, NONE
