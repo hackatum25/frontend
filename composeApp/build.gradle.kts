@@ -1,6 +1,8 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
+val ktor_version: String by project
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
@@ -40,6 +42,11 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.1")
+            implementation("io.ktor:ktor-client-core:${ktor_version}")
+            implementation("io.ktor:ktor-client-cio:${ktor_version}")
+            implementation("io.ktor:ktor-client-content-negotiation:${ktor_version}")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:${ktor_version}")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
