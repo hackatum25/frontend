@@ -51,7 +51,7 @@ fun PostList(modifier: Modifier, navController: NavHostController){
                 votesCount = item.upvoteCount-item.downvoteCount,
                 onUpClick = { MainScope().launch(Dispatchers.Default) { createRating(item.id, 1) }},
                 onDownClick = { MainScope().launch(Dispatchers.Default) { createRating(item.id, -1) } },
-                onCardClick = { navController.navigate("postDetails") },
+                onCardClick = { navController.navigate("postDetails/${item.title}/${item.description}/Test,KeineAhnung/${item.upvoteCount}/${item.downvoteCount}/${item.createdAt}") },
             )
         }
     }

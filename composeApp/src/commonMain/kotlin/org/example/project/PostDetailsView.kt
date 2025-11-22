@@ -109,7 +109,7 @@ fun PostDetailsView(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "Headline here",
+                        text = title,
                         color = MaterialTheme.colorScheme.primary,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
@@ -200,7 +200,7 @@ fun PostDetailsView(
                     }
 
                     Text(
-                        text = "Description",
+                        text = description,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                         modifier = Modifier.padding(bottom = 16.dp)
