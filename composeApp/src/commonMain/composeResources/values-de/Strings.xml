@@ -5,6 +5,7 @@
     <string name="app_language">App Sprache: %1$s</string>
     <string name="change_lang">Ändere Sprache</string>
     <string name="navbar_feed">Aktivitäten</string>
+    <string name="navbar_create_post">Neuer Post</string>
 
     <string name="navbar_profile">Profil</string>
     <string name="badge_official">Offiziell</string>
@@ -34,4 +35,5 @@
 
 
 
+    <string name="post_publish">Veröffentlichen</string>
 </resources>

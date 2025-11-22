@@ -4,15 +4,12 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import org.example.project.navigation.BottomNavItem
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -20,8 +17,8 @@ import org.jetbrains.compose.resources.stringResource
 fun BottomNavigation(navController: NavHostController) {
 
     val items = listOf(
-        BottomNavItem.Home,
-        BottomNavItem.Profile
+        NavItem.Home,
+        NavItem.Profile
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -35,8 +32,8 @@ fun BottomNavigation(navController: NavHostController) {
 
 @Composable
 fun RowScope.AddItem(
-  screen: BottomNavItem,
-  navController: NavHostController
+    screen: NavItem,
+    navController: NavHostController
 ) {
   val navBackStackEntry by navController.currentBackStackEntryAsState()
   val currentDestination = navBackStackEntry?.destination

@@ -106,9 +106,6 @@ fun PostCard(modifier: Modifier = Modifier,
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp,
         ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-        ),
     ) {
         Column(modifier = Modifier.clickable(onClick = { onCardClick()})) {
             Row(
