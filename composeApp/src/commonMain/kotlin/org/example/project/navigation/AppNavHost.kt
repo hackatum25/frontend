@@ -5,7 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.runBlocking
 import org.example.project.PostDetailsView
+import org.example.project.apiClient.Client
 import org.example.project.views.*
 import org.example.project.views.FeedView
 import org.example.project.views.ProfileView
@@ -16,6 +18,7 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 @Composable
 fun AppNavHost(navController: NavHostController = rememberNavController()) {
+    // runBlocking {Client.login("test", "test")}
     NavHost(navController = navController, startDestination = "feed") {
         composable("feed") {
             FeedView(navController)
