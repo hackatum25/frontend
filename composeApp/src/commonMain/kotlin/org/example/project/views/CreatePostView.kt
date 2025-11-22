@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -16,6 +17,12 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 @Composable
 fun CreatePostView(navController: NavHostController,isNavbarVisible: MutableState<Boolean>){
+    DisposableEffect(Unit) {
+        onDispose {
+            isNavbarVisible.value = true
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -23,7 +30,6 @@ fun CreatePostView(navController: NavHostController,isNavbarVisible: MutableStat
     ) {
         Button(
             onClick = {
-                isNavbarVisible.value = true
                 navController.navigate("feed")
             },
         ) {

@@ -42,12 +42,15 @@ fun App(modifier: Modifier = Modifier) {
         Scaffold(
             bottomBar = {
                 if(isNavbarVisible.value) {
-                BottomNavigation(navController)
+                    BottomNavigation(navController)
                 } },
             floatingActionButton = {
+                if(isNavbarVisible.value){
                 ActionButton(onClick = {
-                    isNavbarVisible.value=false
-                    navController.navigate("createPost")})
+                    isNavbarVisible.value = false
+                    navController.navigate("createPost")
+                })
+            }
             },
             floatingActionButtonPosition = FabPosition.End, // or Center
         ) {
