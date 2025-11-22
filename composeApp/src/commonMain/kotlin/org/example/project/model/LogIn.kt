@@ -39,7 +39,7 @@ fun LoginScreen(
     navController: NavHostController = rememberNavController()
     , isNavbarVisible: MutableState<Boolean>
 ) {
-    val username = remember { mutableStateOf("") }
+    val username = remember { mutableStateOf("max.mustermann@test.de") }
     val password = remember { mutableStateOf("") }
 
     Column(

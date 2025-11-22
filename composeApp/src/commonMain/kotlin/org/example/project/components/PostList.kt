@@ -29,15 +29,16 @@ import kotlin.time.ExperimentalTime
 @Preview
 @Composable
 fun PostList(modifier: Modifier, navController: NavHostController){
-    val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
-    /*val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
+    //val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
+    val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
         TimeZone.currentSystemDefault())
-        , 0, 420, -1 ))*/
+        , 0, 420, -1 ))
     LazyColumn {
         items(myData) { item ->
             PostCard(
                 title = item.title,
                 description = item.description,
+                username = "Landeshauptstadt München",
                 mainImage = painterResource(Res.drawable.martinsried),
                 isOfficial = true,
                 voteState = when (item.ownRating) {
