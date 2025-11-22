@@ -25,10 +25,16 @@ import org.jetbrains.compose.resources.stringResource
 
 import org.jetbrains.compose.resources.stringResource
 import org.example.project.generated.Res
+import org.example.project.generated.city_munich_logo
 import org.example.project.generated.compose_multiplatform
 import org.example.project.generated.hello
+import org.example.project.generated.martinsried
+import kotlin.time.Clock
+import kotlin.time.Duration.Companion.days
+import kotlin.time.ExperimentalTime
 
 
+@OptIn(ExperimentalTime::class)
 @Composable
 @Preview
 fun App() {
@@ -41,6 +47,18 @@ fun App() {
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+                Post(
+                    title = "U6 Extension to Martinsried",
+                    mainImage = painterResource(Res.drawable.martinsried),
+                    isOfficial = true,
+                    voteState = VoteState.UP,
+                    avatar = painterResource(Res.drawable.city_munich_logo),
+                    createdAt = Clock.System.now().minus(4.days),
+                    votesCount = 67,
+                    onUpClick = { /*...*/ },
+                    onDownClick = { /*...*/ },
+                    onCardClick = { /*...*/ }
+                )
                 Button(onClick = { showContent = !showContent }) {
                     Text("Click you!")
                 }
