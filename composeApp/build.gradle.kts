@@ -45,6 +45,11 @@ kotlin {
         }
     }
 }
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "org.example.project.generated"
+    generateResClass = always
+}
 
 android {
     namespace = "org.example.project"
