@@ -7,4 +7,4 @@ import kotlinx.serialization.Serializable
 data class Rating(
     val post: Int,
     val rating: Int
-) {}
+)

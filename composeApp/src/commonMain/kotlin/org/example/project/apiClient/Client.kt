@@ -10,10 +10,10 @@ import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import org.example.project.model.ExtendedPost
 import org.example.project.model.Post
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.serialization.kotlinx.json.json
+import org.example.project.model.Rating
 
-
-class Client{
+object Client{
     val client: HttpClient = HttpClient(CIO) {
         install(ContentNegotiation){
             json()
@@ -34,5 +34,9 @@ class Client{
         return response.status.value
     }
 
-
+    suspend fun createRating(postId: Int, rating: Rating) {
+        client.post("${SERVER_URL}/posts/${postId}/vote") {
+            setBody(rating)
+        }
+    }
 }

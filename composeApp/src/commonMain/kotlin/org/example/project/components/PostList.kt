@@ -17,6 +17,7 @@ import org.example.project.generated.city_munich_logo
 import org.example.project.generated.martinsried
 import org.example.project.model.ExtendedPost
 import org.example.project.model.Post
+import org.example.project.apiClient.Client.createRating
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
@@ -27,7 +28,7 @@ import kotlin.time.ExperimentalTime
 @Preview
 @Composable
 fun PostList(modifier: Modifier, navController: NavHostController){
-    val myData: List<ExtendedPost> = listOf(ExtendedPost("Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
+    val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
         TimeZone.currentSystemDefault())
         , 0, 420, -1 ))
     LazyColumn {
