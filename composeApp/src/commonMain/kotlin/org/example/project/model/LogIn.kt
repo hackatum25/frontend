@@ -1,4 +1,4 @@
-package org.example.project
+package org.example.project.model
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,18 +7,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,14 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.example.project.apiClient.Client
 import org.example.project.generated.Res
-import org.example.project.generated.badge_official
+import org.example.project.generated.account_login
+import org.example.project.generated.account_password
+import org.example.project.generated.account_username
 import org.example.project.generated.logging
-import org.example.project.generated.person_24px
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -70,7 +62,7 @@ fun LoginScreen(
             onValueChange = { newUsername ->
                 username.value = newUsername
             },
-            label = { Text("Username") },
+            label = { Text(stringResource(Res.string.account_username)) },
             singleLine = true,
             modifier = Modifier.fillMaxWidth()
         )
@@ -82,7 +74,7 @@ fun LoginScreen(
             onValueChange = {newPassword ->
                 password.value = newPassword
             },
-            label = { Text("Password") },
+            label = { Text(stringResource(Res.string.account_password)) },
             singleLine = true,
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth()
@@ -98,7 +90,7 @@ fun LoginScreen(
                       },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Login")
+            Text(stringResource(Res.string.account_login))
         }
     }
 }

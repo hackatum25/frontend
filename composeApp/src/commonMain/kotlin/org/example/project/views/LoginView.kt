@@ -19,11 +19,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import org.example.project.LoginScreen
 import org.example.project.components.Avatar
 import org.example.project.generated.Res
 import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
+import org.example.project.model.LoginScreen
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

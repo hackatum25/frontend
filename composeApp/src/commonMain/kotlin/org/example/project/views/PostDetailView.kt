@@ -51,12 +51,10 @@ import org.example.project.generated.change_lang
 import org.example.project.generated.compose_multiplatform
 import org.example.project.generated.hello
 import org.example.project.generated.nest_clock_farsight_analog_24px
-import org.example.project.theme.MobileAppTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-import org.example.project.theme.MobileAppTheme
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -72,7 +70,6 @@ fun PostDetailView(
     downVote: Int,
     createDate: Instant = Clock.System.now(),
 ) {
-    MobileAppTheme {
         Card(
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth(),
@@ -221,7 +218,6 @@ fun PostDetailView(
 
             }
         }
-    }
 }
 
 

@@ -29,10 +29,10 @@ import kotlin.time.ExperimentalTime
 @Preview
 @Composable
 fun PostList(modifier: Modifier, navController: NavHostController){
-    val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
-    //val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
-    //    TimeZone.currentSystemDefault())
-    //    , 0, 420, -1 ))
+    //val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
+    val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Heyheyhey", Clock.System.now().toLocalDateTime(
+        TimeZone.currentSystemDefault())
+        , 0, 420, -1 ))
     LazyColumn {
         items(myData) { item ->
             PostCard(

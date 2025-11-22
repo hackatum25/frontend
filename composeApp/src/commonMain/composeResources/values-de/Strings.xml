@@ -19,6 +19,8 @@
 
     <string name="account_login">Anmelden</string>
     <string name="account_logout">Abmelden</string>
+    <string name="account_username">Benutzername</string>
+    <string name="account_password">Passwort</string>
 
     <string name="filter_official">Offiziell</string>
     <string name="filter_transport">Verkehr</string>

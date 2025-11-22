@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.compose.MobileAppTheme
 import org.example.project.apiClient.Client
 import org.example.project.components.ActionButton
 import org.example.project.components.VoteState
@@ -20,7 +21,6 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
-import org.example.project.theme.MobileAppTheme
 
 import org.example.project.generated.Res
 import org.example.project.generated.city_munich_logo
@@ -39,6 +39,7 @@ fun App(modifier: Modifier = Modifier) {
     val isNavbarVisible = remember { mutableStateOf(false) }
 
     MobileAppTheme {
+
         Scaffold(
             bottomBar = {
                 if(isNavbarVisible.value) {
