@@ -8,6 +8,7 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -27,40 +28,31 @@ fun BottomNavigation(navController: NavHostController) {
 
     NavigationBar {
         items.forEach { item ->
-            AddItem(item, currentRoute, navController)
+            AddItem(item, navController)
         }
     }
 }
 
 @Composable
 fun RowScope.AddItem(
-    screen: BottomNavItem,
-    currentRoute: String?,
-    navController: NavHostController
+  screen: BottomNavItem,
+  navController: NavHostController
 ) {
-    NavigationBarItem(
-        label = { Text(text = stringResource(screen.title)) },
-        icon = {
-            Icon(
-                painter = painterResource(screen.icon),
-                contentDescription = stringResource(screen.title)
-            )
-        },
-        selected = currentRoute == screen.route,
-        alwaysShowLabel = true,
-        onClick = {
-            if (currentRoute != screen.route) {
-                navController.navigate(screen.route) {
-                    // Avoid multiple copies on the back stack
-                    launchSingleTop = true
-                    // Optional: pop up to start destination to keep single instance
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        saveState = true
-                    }
-                    restoreState = true
-                }
-            }
-        },
-        colors = NavigationBarItemDefaults.colors()
-    )
+  val navBackStackEntry by navController.currentBackStackEntryAsState()
+  val currentDestination = navBackStackEntry?.destination
+  val selected = currentDestination?.hierarchy?.any { it.route == screen.route || it.route?.startsWith(screen.route) == true } == true
+
+  NavigationBarItem(
+    label = { Text(stringResource(screen.title)) },
+    icon = { Icon(painterResource(screen.icon), contentDescription = null) },
+    selected = selected,
+    onClick = {
+      if (!selected) {
+        navController.navigate(screen.route) {
+          launchSingleTop = true
+          restoreState = true
+        }
+      }
+    }
+  )
 }
