@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,6 +27,7 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -44,14 +48,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import org.example.project.components.Avatar
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
+import org.example.project.generated.badge_official
 import org.example.project.generated.change_lang
+import org.example.project.generated.city_munich_logo
 import org.example.project.generated.compose_multiplatform
+import org.example.project.generated.description
 import org.example.project.generated.hello
+import org.example.project.generated.labels
 import org.example.project.generated.martinsried
 import org.example.project.generated.nest_clock_farsight_analog_24px
+import org.example.project.generated.person_24px
+import org.example.project.generated.verified_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -99,17 +110,61 @@ fun PostDetailsView(
     createDate: Instant,
     navController: NavHostController
     ) {
+    val avatar: Painter = painterResource(Res.drawable.city_munich_logo)
+    val username = "Landeshauptstadt München"
+    val isOfficial = true
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
+
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 55.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Avatar(avatar = avatar)
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Text(
+                    text = username,
+                    style = MaterialTheme.typography.titleMedium,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier.weight(1f) // lets text take remaining space
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                if(isOfficial){
+                    SuggestionChip(
+                        onClick = { /*...*/ },
+                        label = {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    painter = painterResource(Res.drawable.verified_24px),
+                                    contentDescription = "verified icon",
+                                    modifier = Modifier.size(18.dp), // adjust to match text height
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(stringResource(Res.string.badge_official))
+                            }
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .heightIn(min = 32.dp)
+                    )
+                }
+            }
             // Image Section
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(250.dp)
-                    .padding(top = 40.dp)
+                    .padding(top = 16.dp)
                     .padding(horizontal = 16.dp)
             ) {
                 Image(
@@ -117,7 +172,7 @@ fun PostDetailsView(
                     contentDescription = "Header image",
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
+                        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp)),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -217,7 +272,7 @@ fun PostDetailsView(
             ) {
                 // Subtitle
                 Text(
-                    text = "Lables",
+                    text = stringResource(Res.string.labels),
                     style = MaterialTheme.typography.titleMedium,
                     lineHeight = 20.sp,
                     modifier = Modifier.padding(bottom = 16.dp)
@@ -249,7 +304,7 @@ fun PostDetailsView(
                 }
 
                 Text(
-                    text = "Description",
+                    text = stringResource(Res.string.description),
                     style = MaterialTheme.typography.titleMedium,
                     lineHeight = 20.sp,
                     modifier = Modifier.padding(bottom = 16.dp)

@@ -30,4 +30,7 @@
     <string name="filter_events">Events</string>
 
     <string name="logging">Log in</string>
+
+    <string name="labels">Labels</string>
+    <string name="description">Description</string>
 </resources>
