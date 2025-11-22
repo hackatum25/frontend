@@ -40,6 +40,7 @@ import org.example.project.generated.badge_official
 import org.example.project.generated.history_24px
 import org.example.project.generated.person_24px
 import org.example.project.generated.swap_vert_24px
+import org.example.project.generated.verified_24px
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Clock
 import kotlin.time.Duration
@@ -134,11 +135,21 @@ fun Post(modifier: Modifier = Modifier,
 
                 if(isOfficial){
                     SuggestionChip(
-                        onClick = { /*...*/ },
-                        label = { Text(stringResource(Res.string.badge_official)) },
-                        modifier = Modifier
-                            .align(Alignment.CenterVertically)
-                            .heightIn(min = 32.dp) // keep chip compact
+    onClick = { /*...*/ },
+    label = {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painter = painterResource(Res.drawable.verified_24px),
+                contentDescription = "verified icon",
+                modifier = Modifier.size(18.dp), // adjust to match text height
+            )
+            Spacer(modifier = Modifier.width(6.dp))
+            Text(stringResource(Res.string.badge_official))
+        }
+    },
+    modifier = Modifier
+        .align(Alignment.CenterVertically)
+        .heightIn(min = 32.dp)
                     )
                 }
             }

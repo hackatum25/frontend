@@ -20,4 +20,10 @@
 
     <string name="account_login">Login</string>
     <string name="account_logout">Logout</string>
+
+    <string name="filter_official">Official</string>
+    <string name="filter_transport">Transport</string>
+    <string name="filter_environment">Environment</string>
+    <string name="filter_finances">Finances</string>
+    <string name="filter_events">Events</string>
 </resources>

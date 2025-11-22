@@ -19,4 +19,10 @@
 
     <string name="account_login">Anmelden</string>
     <string name="account_logout">Abmelden</string>
+
+    <string name="filter_official">Offiziell</string>
+    <string name="filter_transport">Verkehr</string>
+    <string name="filter_environment">Umwelt</string>
+    <string name="filter_finances">Finanzen</string>
+    <string name="filter_events">Veranstaltungen</string>
 </resources>
