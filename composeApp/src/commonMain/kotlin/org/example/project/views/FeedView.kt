@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import org.example.project.components.Post
+import org.example.project.components.PostList
 import org.example.project.components.TagFilter
 import org.example.project.components.VoteState
 import org.example.project.generated.Res
@@ -42,17 +43,6 @@ fun FeedView(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         TagFilter()
-        Post(
-            title = "U6 Extension to Martinsried",
-            mainImage = painterResource(Res.drawable.martinsried),
-            isOfficial = true,
-            voteState = VoteState.UP,
-            avatar = painterResource(Res.drawable.city_munich_logo),
-            createdAt = Clock.System.now().minus(4.days),
-            votesCount = 67,
-            onUpClick = { /*...*/ },
-            onDownClick = { /*...*/ },
-            onCardClick = { /*...*/ }
-        )
+        PostList(Modifier)
     }
 }

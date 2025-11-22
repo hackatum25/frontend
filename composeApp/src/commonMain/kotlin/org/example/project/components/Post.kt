@@ -105,7 +105,7 @@ fun Post(modifier: Modifier = Modifier,
          onCardClick: (() -> Unit)? = null,) {
     Card(
         shape = MaterialTheme.shapes.small,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp,
         ),
