@@ -5,6 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ExtendedPost(
+    val id: Int,
     val title: String,
     val description: String,
     val createdAt: LocalDateTime,
