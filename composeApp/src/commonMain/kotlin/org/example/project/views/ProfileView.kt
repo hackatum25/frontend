@@ -3,12 +3,16 @@ package org.example.project.views
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +26,7 @@ import org.example.project.components.Avatar
 import org.example.project.generated.Res
 import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
+import org.example.project.generated.logout_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -54,7 +59,14 @@ fun ProfileView(navController: NavHostController) {
                 onClick = { /* logout */ },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
-                Text(stringResource(Res.string.account_logout))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painter = painterResource(Res.drawable.logout_24px),
+                        contentDescription = "Logout",
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(stringResource(Res.string.account_logout))
+                }
             }
         }
     }
