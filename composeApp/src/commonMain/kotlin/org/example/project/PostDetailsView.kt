@@ -50,6 +50,7 @@ import org.example.project.generated.arrow_upward_24px
 import org.example.project.generated.change_lang
 import org.example.project.generated.compose_multiplatform
 import org.example.project.generated.hello
+import org.example.project.generated.martinsried
 import org.example.project.generated.nest_clock_farsight_analog_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -98,182 +99,171 @@ fun PostDetailsView(
     createDate: Instant,
     navController: NavHostController
     ) {
-        Card(
-            shape = MaterialTheme.shapes.small,
-            modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(
-                defaultElevation = 2.dp,
-            ),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.background,
-            ),
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
         ) {
+            // Image Section
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+                    .padding(top = 40.dp)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Image(
+                    painter = painterResource(Res.drawable.martinsried), // Your image resource
+                    contentDescription = "Header image",
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
+                    contentScale = ContentScale.Crop
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(all = 16.dp),
+                verticalAlignment = Alignment.Top
+            ) {
+                var expanded = remember { mutableStateOf(false) }
+                var isOverflowing = remember { mutableStateOf(false) }
+
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable { if (isOverflowing.value) expanded.value = !expanded.value }
+                ) {
+                    Text(
+                        text = title,
+                        color = MaterialTheme.colorScheme.primary,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        maxLines = if (expanded.value) Int.MAX_VALUE else 5,
+                        overflow = TextOverflow.Ellipsis,
+                        onTextLayout = { textLayoutResult ->
+                            isOverflowing.value = textLayoutResult.hasVisualOverflow
+                        }
+                    )
+
+                    // Show clickable dots when text overflows
+                    if (isOverflowing.value && (!expanded.value)) {
+                        Text(
+                            text = "...",
+                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .clickable { expanded.value = true }
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                // Voting section
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(Res.drawable.arrow_upward_24px),
+                        contentDescription = "Arrow up",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = upVote.toString(),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Icon(
+                        painter = painterResource(Res.drawable.arrow_downward_24px),
+                        contentDescription = "Arrow down",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = downVote.toString(),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+            }
+
+            Row {
+                Icon(
+                    painter = painterResource(Res.drawable.nest_clock_farsight_analog_24px),
+                    contentDescription = "Clock",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+                Text(
+                    text = formatTimestamp(createDate.toString()),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                )
+            }
+
+            // Content Section
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp)
             ) {
-                // Image Section
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp)
-                        .padding(top = 40.dp)
-                        .padding(horizontal = 16.dp)
+                // Subtitle
+                Text(
+                    text = "Lables",
+                    style = MaterialTheme.typography.titleMedium,
+                    lineHeight = 20.sp,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+
+                // Label Row
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                        .padding(bottom = 16.dp)
                 ) {
-                    Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform), // Your image resource
-                        contentDescription = "Header image",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
-                        contentScale = ContentScale.Crop
-                    )
-                }
-
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(all = 16.dp),
-                    verticalAlignment = Alignment.Top
-                ) {
-                    var expanded = remember { mutableStateOf(false) }
-                    var isOverflowing = remember { mutableStateOf(false) }
-
-                    Box(
-                        modifier = Modifier
-                            .weight(1f)
-                            .clickable { if (isOverflowing.value) expanded.value = !expanded.value }
-                    ) {
-                        Text(
-                            text = title,
-                            color = MaterialTheme.colorScheme.primary,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold,
-                            maxLines = if (expanded.value) Int.MAX_VALUE else 5,
-                            overflow = TextOverflow.Ellipsis,
-                            onTextLayout = { textLayoutResult ->
-                                isOverflowing.value = textLayoutResult.hasVisualOverflow
-                            }
-                        )
-
-                        // Show clickable dots when text overflows
-                        if (isOverflowing.value && (!expanded.value)) {
+                    labels.forEach { label ->
+                        Box(
+                            modifier = Modifier
+                                .background(
+                                    color = MaterialTheme.colorScheme.primaryContainer,
+                                    shape = RoundedCornerShape(16.dp)
+                                )
+                                .padding(horizontal = 12.dp, vertical = 6.dp)
+                        ) {
                             Text(
-                                text = "...",
-                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
-                                fontSize = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier
-                                    .align(Alignment.BottomEnd)
-                                    .clickable { expanded.value = true }
+                                text = label,
+                                color = MaterialTheme.colorScheme.onBackground,
+                                fontSize = 14.sp
                             )
                         }
                     }
-
-                    Spacer(modifier = Modifier.width(16.dp))
-
-                    // Voting section
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painter = painterResource(Res.drawable.arrow_upward_24px),
-                            contentDescription = "Arrow up",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = upVote.toString(),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Icon(
-                            painter = painterResource(Res.drawable.arrow_downward_24px),
-                            contentDescription = "Arrow down",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = downVote.toString(),
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
                 }
 
-                Row {
-                    Icon(
-                        painter = painterResource(Res.drawable.nest_clock_farsight_analog_24px),
-                        contentDescription = "Clock",
-                        tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                    Text(
-                        text = formatTimestamp(createDate.toString()),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                    )
-                }
-                
-                // Content Section
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    // Subtitle
-                    Text(
-                        text = "Lables",
-                        style = MaterialTheme.typography.titleMedium,
-                        lineHeight = 20.sp,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
+                Text(
+                    text = "Description",
+                    style = MaterialTheme.typography.titleMedium,
+                    lineHeight = 20.sp,
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
 
-                    // Label Row
-                    FlowRow(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                            .padding(bottom = 16.dp)
-                    ) {
-                        labels.forEach { label ->
-                            Box(
-                                modifier = Modifier
-                                    .background(
-                                        color = MaterialTheme.colorScheme.primaryContainer,
-                                        shape = RoundedCornerShape(16.dp)
-                                    )
-                                    .padding(horizontal = 12.dp, vertical = 6.dp)
-                            ) {
-                                Text(
-                                    text = label,
-                                    color = MaterialTheme.colorScheme.onBackground,
-                                    fontSize = 14.sp
-                                )
-                            }
-                        }
-                    }
-
-                    Text(
-                        text = "Description",
-                        style = MaterialTheme.typography.titleMedium,
-                        lineHeight = 20.sp,
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-
-                    Text(
-                        text = description,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
-                        modifier = Modifier.padding(bottom = 16.dp)
-                    )
-
-                    }
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
 
                 }
+
             }
 }
 
