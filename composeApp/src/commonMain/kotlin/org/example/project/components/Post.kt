@@ -26,7 +26,6 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
@@ -120,17 +119,7 @@ fun Post(modifier: Modifier = Modifier,
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = avatar,
-                    contentDescription = "Avatar",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .background(Color.White)
-                        .border(2.dp, Color.White, CircleShape),
-                    contentScale = ContentScale.Crop
-                )
-
+                Avatar(avatar = avatar)
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(

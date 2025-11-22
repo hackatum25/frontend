@@ -17,4 +17,7 @@
     <string name="duration_short_minutes">m</string>
     <string name="duration_short_seconds">s</string>
     <string name="duration_short_just_now">now</string>
+
+    <string name="account_login">Login</string>
+    <string name="account_logout">Logout</string>
 </resources>
