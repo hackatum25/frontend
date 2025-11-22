@@ -91,7 +91,7 @@ fun formatAge(time: Duration): String {
 @Preview
 fun PostCard(modifier: Modifier = Modifier,
          avatar: Painter = painterResource(Res.drawable.person_24px),
-         title: String, description: String,
+         title: String, description: String, username: String,
          isOfficial: Boolean = false,
          mainImage: Painter? = null,
          votesCount: Int = 420,
@@ -121,7 +121,7 @@ fun PostCard(modifier: Modifier = Modifier,
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = title,
+                    text = username,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -160,6 +160,13 @@ fun PostCard(modifier: Modifier = Modifier,
                         .fillMaxWidth().padding(bottom = 16.dp)
                 )
             }
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.fillMaxWidth().padding(bottom =16.dp, start = 16.dp, end = 16.dp)
+            )
             Text(
                 text = description,
                 style = MaterialTheme.typography.bodyMedium,
