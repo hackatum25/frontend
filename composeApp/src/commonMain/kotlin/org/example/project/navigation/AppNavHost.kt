@@ -42,14 +42,15 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
         }
          */
         composable(
-            "postDetails/{title}/{description}/{labels}/{upVote}/{downVote}/{createDate}",
+            "postDetails/{title}/{description}/{labels}/{upVote}/{downVote}/{createDate}/{author}",
             arguments = listOf(
                 navArgument("title") { type = NavType.StringType },
                 navArgument("description") { type = NavType.StringType },
                 navArgument("labels") { type = NavType.StringType },
                 navArgument("upVote") { type = NavType.IntType },
                 navArgument("downVote") { type = NavType.IntType },
-                navArgument("createDate") { type = NavType.LongType }
+                navArgument("createDate") { type = NavType.LongType },
+                navArgument("author") { type = NavType.StringType },
             )
         ) { backStackEntry ->
 
@@ -67,6 +68,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
                 val downVote = args!!.read { getInt("downVote") }
                 val createDateMillis = args!!.read { getLong("createDate") }
                 val createDate = Instant.fromEpochMilliseconds(createDateMillis)
+                val author = args!!.read { getString("author") }
 
                 PostDetailsView(
                     title = title,
@@ -75,6 +77,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
                     upVote = upVote,
                     downVote = downVote,
                     createDate = createDate,
+                    author = author,
                     navController = navController
                 )
             } else {
@@ -86,6 +89,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
                     upVote = 0,
                     downVote = 0,
                     createDate = Clock.System.now(),
+                    author = "",
                     navController = navController
                 )
             }

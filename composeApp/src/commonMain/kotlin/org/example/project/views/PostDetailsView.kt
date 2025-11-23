@@ -94,11 +94,11 @@ fun PostDetailsView(
     upVote: Int,
     downVote: Int,
     createDate: Instant,
+    author : String,
     navController: NavHostController
     ) {
     val imageMap = mapOf("Erweiterung der U6 nach Martinsried" to painterResource(Res.drawable.martinsried), "Olympia Bürgerentscheid" to painterResource(Res.drawable.olympia))
     val avatar: Painter = painterResource(Res.drawable.city_munich_logo)
-    val username = "Landeshauptstadt München"
     val isOfficial = true
         Column(
             modifier = Modifier
@@ -117,7 +117,7 @@ fun PostDetailsView(
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
-                    text = username,
+                    text = author,
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -147,24 +147,30 @@ fun PostDetailsView(
                 }
             }
             // Image Section
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-                    .padding(top = 16.dp)
-                    .padding(horizontal = 16.dp)
-            ) {
-                if(imageMap[title] !=null){
+            if(imageMap[title] != null) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(250.dp)
+                        .padding(top = 16.dp)
+                        .padding(horizontal = 16.dp)
+                ) {
                     Image(
                         painter = imageMap[title]!!,
                         contentDescription = "Header image",
                         modifier = Modifier
                             .fillMaxSize()
-                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp)),
+                            .clip(
+                                RoundedCornerShape(
+                                    topStart = 16.dp,
+                                    topEnd = 16.dp,
+                                    bottomStart = 16.dp,
+                                    bottomEnd = 16.dp
+                                )
+                            ),
                         contentScale = ContentScale.Crop
                     )
-                }
-                /*
+                    /*
                 Image(
                     painter = painterResource(Res.drawable.martinsried), // Your image resource
                     contentDescription = "Header image",
@@ -174,6 +180,7 @@ fun PostDetailsView(
                     contentScale = ContentScale.Crop
                 )
                  */
+                }
             }
 
             Row(

@@ -80,7 +80,7 @@ fun PostList(modifier: Modifier, navController: NavHostController){
                 votesCount = votesCount.value,
                 onUpClick = { setRating(1) },
                 onDownClick = { setRating( -1) },
-                onCardClick = { navController.navigate("postDetails/${escapeWhitespace(item.title)}/${escapeWhitespace(item.description)}/Test,KeineAhnung/${item.upvoteCount}/${item.downvoteCount}/${item.createdAt.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()}") },
+                onCardClick = { navController.navigate("postDetails/${escapeWhitespace(item.title)}/${escapeWhitespace(item.description)}/${item.tags.map { it.toString() }.joinToString { "," }}/${item.upvoteCount}/${item.downvoteCount}/${item.createdAt.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()}/${escapeWhitespace(item.creatorUsername)}") },
             )
         }
     }
