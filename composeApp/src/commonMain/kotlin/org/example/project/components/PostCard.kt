@@ -154,7 +154,7 @@ fun PostCard(
                     contentDescription = null, // decorative
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .height(150.dp)
+                        .height(250.dp)
                         .fillMaxWidth().padding(bottom = 16.dp)
                 )
             }
