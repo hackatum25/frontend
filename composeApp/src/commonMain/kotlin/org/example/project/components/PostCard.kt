@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.navigation.NavHostController
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
@@ -89,17 +88,19 @@ fun formatAge(time: Duration): String {
 @OptIn(ExperimentalTime::class)
 @Composable
 @Preview
-fun PostCard(modifier: Modifier = Modifier,
-         avatar: Painter = painterResource(Res.drawable.person_24px),
-         title: String, description: String, username: String,
-         isOfficial: Boolean = false,
-         mainImage: Painter? = null,
-         votesCount: Int = 420,
-         createdAt: Instant,
-         voteState: VoteState = VoteState.NONE,
-         onUpClick: (() -> Unit)? = null,
-         onDownClick: (() -> Unit)? = null,
-         onCardClick: (() -> Unit),) {
+fun PostCard(
+    modifier: Modifier = Modifier,
+    avatar: Painter = painterResource(Res.drawable.person_24px),
+    title: String, description: String, username: String,
+    isOfficial: Boolean = false,
+    mainImage: Painter? = null,
+    votesCount: Int = 420,
+    createdAt: Instant,
+    voteState: VoteState = VoteState.NONE,
+    onUpClick: (() -> Unit) = {},
+    onDownClick: (() -> Unit) = {},
+    onCardClick: (() -> Unit),
+) {
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = modifier.fillMaxWidth(),
@@ -142,8 +143,8 @@ fun PostCard(modifier: Modifier = Modifier,
                             }
                         },
                         modifier = Modifier
-                        .align(Alignment.CenterVertically)
-                        .heightIn(min = 32.dp)
+                            .align(Alignment.CenterVertically)
+                            .heightIn(min = 32.dp)
                     )
                 }
             }
@@ -210,7 +211,7 @@ fun PostCard(modifier: Modifier = Modifier,
                 // Right side: up/down buttons
                 Row {
                     IconButton(
-                        onClick = {},
+                        onClick = onUpClick,
                         modifier = Modifier.size(40.dp),
                     ) {
                         Icon(
@@ -221,7 +222,7 @@ fun PostCard(modifier: Modifier = Modifier,
                     }
 
                     IconButton(
-                        onClick = {},
+                        onClick = onDownClick,
                         modifier = Modifier.size(40.dp),
                     ) {
                         Icon(
