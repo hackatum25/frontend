@@ -36,5 +36,10 @@
 
 
 
+    <string name="post_create_new">Erstelle einen neuen Post</string>
+    <string name="post_select_tags">Wähle Tags</string>
     <string name="post_publish">Veröffentlichen</string>
+    <string name="post_cancel">Verwerfen</string>
+    <string name="post_enter_title">Titel eingeben</string>
+    <string name="post_enter_description">Beschreibung eingeben</string>
 </resources>

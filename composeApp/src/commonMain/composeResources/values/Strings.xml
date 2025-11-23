@@ -36,5 +36,10 @@
     <string name="labels">Labels</string>
     <string name="description">Description</string>
 
+    <string name="post_create_new">Create a new post</string>
+    <string name="post_select_tags">Select Tags</string>
     <string name="post_publish">Publish</string>
+    <string name="post_cancel">Cancel</string>
+    <string name="post_enter_title">Enter Title</string>
+    <string name="post_enter_description">Enter Description</string>
 </resources>
