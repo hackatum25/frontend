@@ -29,12 +29,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import org.example.project.apiClient.Client
 import org.example.project.apiClient.Client.createRating
 import org.example.project.components.Avatar
 import org.example.project.components.PostCard
+import org.example.project.components.PostList
 import org.example.project.components.VoteState
 import org.example.project.components.escapeWhitespace
 import org.example.project.generated.Res
@@ -56,23 +59,8 @@ import kotlin.time.ExperimentalTime
 @OptIn(ExperimentalTime::class)
 @Composable
 fun ProfileView(navController: NavHostController) {
-    val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried), 1 to painterResource(Res.drawable.olympia))
 
-    //val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
-    val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
-        TimeZone.currentSystemDefault())
-        , 0, 420, -1, "Stadt München", true, listOf(Tag.OFFICIAL, Tag.TRANSPORT)
-    ),
-        ExtendedPost(1, "Olympia Bürgerentscheid", "Der Freistaat Bayern unterstützt die Bewerbung Münchens für die Olympischen und Paralympischen Sommerspiele ab 2036", Clock.System.now().toLocalDateTime(
-            TimeZone.currentSystemDefault())
-            , 0, 420, -1, "Freistaat Bayern", true, listOf(Tag.OFFICIAL, Tag.EVENTS)
-        ),
-        ExtendedPost(2, "Weniger Hausaufgaben", "LETS GOOOOO", Clock.System.now().toLocalDateTime(
-            TimeZone.currentSystemDefault())
-            , 0, 420, -1, "Rico Finkbeiner", false, listOf() )
-    )
-    var targetUsername = "Rico Finkbeiner"
-    val userPosts = myData.filter { it.creatorUsername == targetUsername }
+    var targetUsername = "Max Mustermann"
 
     Box(
         modifier = Modifier
@@ -114,10 +102,16 @@ fun ProfileView(navController: NavHostController) {
                 text = stringResource(Res.string.indPost),
                 fontSize = 20.sp,                    // larger text
                 fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(0.8f) // optional width constraint
+                textAlign = TextAlign.Left,
+                modifier = Modifier.fillMaxWidth(0.9f) // optional width constraint
             )
 
+            val modifier = Modifier
+            PostList(
+                modifier, navController,
+                filter = {post -> post.creatorUsername == targetUsername},
+            )
+            /*
             LazyColumn {
                 items(userPosts) { item ->
                     val voteState = remember { mutableStateOf(item.ownRating) }
@@ -162,8 +156,8 @@ fun ProfileView(navController: NavHostController) {
                         },
                     )
                 }
-
             }
+             */
         }
     }
 }

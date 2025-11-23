@@ -40,7 +40,8 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
 
 
     val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried), 1 to painterResource(Res.drawable.olympia))
-    //val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
+    val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
+    /*
     val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
         TimeZone.currentSystemDefault())
         , 0, 420, -1, "Stadt München", true, listOf(Tag.OFFICIAL, Tag.TRANSPORT)
@@ -53,6 +54,7 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
             TimeZone.currentSystemDefault())
         , 0, 420, -1, "Rico Finkbeiner", false, listOf() )
         )
+     */
     val filtered = myData.filter { filter(it) }
 
     LazyColumn {
