@@ -82,7 +82,7 @@ fun PostList(modifier: Modifier, navController: NavHostController){
                 onDownClick = { setRating( -1) },
                 onCardClick = {
                     val tags = item.tags.map { it.name }.fold("", { acc, str -> if (acc.isEmpty()) str else "${acc},${str}" })
-                    navController.navigate("postDetails/${escapeWhitespace(item.title)}/${escapeWhitespace(item.description)}/${tags}/${item.upvoteCount}/${item.downvoteCount}/${item.createdAt.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()}/${escapeWhitespace(item.creatorUsername)}") },
+                    navController.navigate("postDetails/${item.id}/${escapeWhitespace(item.title)}/${escapeWhitespace(item.description)}/${tags}/${item.upvoteCount}/${item.downvoteCount}/${item.createdAt.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()}/${escapeWhitespace(item.creatorUsername)}/${voteState.value}") },
             )
         }
     }

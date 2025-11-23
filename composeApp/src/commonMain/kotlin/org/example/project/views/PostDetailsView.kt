@@ -37,7 +37,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import org.example.project.apiClient.Client.createRating
 import org.example.project.components.Avatar
+import org.example.project.components.VoteState
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
@@ -88,6 +92,7 @@ fun formatTimestamp(timestamp: String): String {
 @Preview
 @Composable
 fun PostDetailsView(
+    id: Int,
     title: String,
     description: String,
     labels: List<String>,
@@ -95,11 +100,25 @@ fun PostDetailsView(
     downVote: Int,
     createDate: Instant,
     author : String,
+    myVote: Int,
     navController: NavHostController
     ) {
     val imageMap = mapOf("Erweiterung der U6 nach Martinsried" to painterResource(Res.drawable.martinsried), "Olympia Bürgerentscheid" to painterResource(Res.drawable.olympia))
     val avatar: Painter = painterResource(Res.drawable.city_munich_logo)
     val isOfficial = true
+    val voteState = remember { mutableStateOf(myVote) }
+    val upvotesCount = remember { mutableStateOf(upVote) }
+    val downvotesCount = remember { mutableStateOf(downVote) }
+
+    fun setRating(ratingVal: Int) {
+        val oldVal = voteState.value
+        MainScope().launch { createRating(id, ratingVal) }
+        voteState.value = ratingVal
+        if (ratingVal == 1 && oldVal != 1) upvotesCount.value++
+        if (ratingVal != 1 && oldVal == 1) upvotesCount.value--
+        if (ratingVal == -1 && oldVal != -1) downvotesCount.value++
+        if (ratingVal != -1 && oldVal == -1) downvotesCount.value--
+    }
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -229,7 +248,7 @@ fun PostDetailsView(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(
-                        onClick = {},
+                        onClick = { setRating(1) },
                         modifier = Modifier.size(40.dp),
                     ) {
                         Icon(
@@ -241,14 +260,14 @@ fun PostDetailsView(
 
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = upVote.toString(),
+                        text = upvotesCount.value.toString(),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     IconButton(
-                        onClick = {},
+                        onClick = { setRating(-1) },
                         modifier = Modifier.size(40.dp),
                     ) {
                         Icon(
@@ -259,7 +278,7 @@ fun PostDetailsView(
                     }
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = downVote.toString(),
+                        text = downvotesCount.value.toString(),
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
                         color = MaterialTheme.colorScheme.onSurface

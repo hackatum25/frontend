@@ -42,8 +42,9 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
         }
          */
         composable(
-            "postDetails/{title}/{description}/{labels}/{upVote}/{downVote}/{createDate}/{author}",
+            "postDetails/{id}/{title}/{description}/{labels}/{upVote}/{downVote}/{createDate}/{author}/{myVote}",
             arguments = listOf(
+                navArgument("id") { type = NavType.IntType },
                 navArgument("title") { type = NavType.StringType },
                 navArgument("description") { type = NavType.StringType },
                 navArgument("labels") { type = NavType.StringType },
@@ -51,6 +52,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
                 navArgument("downVote") { type = NavType.IntType },
                 navArgument("createDate") { type = NavType.LongType },
                 navArgument("author") { type = NavType.StringType },
+                navArgument("myVote") { type = NavType.IntType },
             )
         ) { backStackEntry ->
 
@@ -59,6 +61,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
             val args = backStackEntry.arguments
 
             if (true) {
+                var id = args!!.read { getInt("id") }
                 val title = args!!.read { getString("title") }
                 val description = args!!.read { getString("description") }
                 val labels = args!!.read { getString("labels") }.split(",")           // split by comma
@@ -69,8 +72,10 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
                 val createDateMillis = args!!.read { getLong("createDate") }
                 val createDate = Instant.fromEpochMilliseconds(createDateMillis)
                 val author = args!!.read { getString("author") }
+                val myVote = args!!.read { getInt("myVote") }
 
                 PostDetailsView(
+                    id = id,
                     title = title,
                     description = description,
                     labels = labels,
@@ -78,11 +83,13 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
                     downVote = downVote,
                     createDate = createDate,
                     author = author,
+                    myVote = myVote,
                     navController = navController
                 )
             } else {
                 // Fallback if regex fails
                 PostDetailsView(
+                    id = 0,
                     title = "",
                     description = "",
                     labels = emptyList(),
@@ -90,6 +97,7 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
                     downVote = 0,
                     createDate = Clock.System.now(),
                     author = "",
+                    myVote = 0,
                     navController = navController
                 )
             }
