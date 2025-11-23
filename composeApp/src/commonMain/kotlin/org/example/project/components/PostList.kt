@@ -22,6 +22,7 @@ import org.example.project.generated.city_munich_logo
 import org.example.project.generated.martinsried
 import org.example.project.generated.olympia
 import org.example.project.model.ExtendedPost
+import org.example.project.model.Tag
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
@@ -39,13 +40,15 @@ fun PostList(modifier: Modifier, navController: NavHostController){
     //val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
     val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
         TimeZone.currentSystemDefault())
-        , 0, 420, -1 ),
+        , 0, 420, -1, "Stadt München", true, listOf(Tag.OFFICIAL, Tag.TRANSPORT)
+    ),
         ExtendedPost(1, "Olympia Bürgerentscheid", "Der Freistaat Bayern unterstützt die Bewerbung Münchens für die Olympischen und Paralympischen Sommerspiele ab 2036", Clock.System.now().toLocalDateTime(
             TimeZone.currentSystemDefault())
-            , 0, 420, -1 ),
+            , 0, 420, -1, "Freistaat Bayern", true, listOf(Tag.OFFICIAL, Tag.EVENTS)
+        ),
                 ExtendedPost(2, "Weniger Hausaufgaben", "LETS GOOOOO", Clock.System.now().toLocalDateTime(
             TimeZone.currentSystemDefault())
-        , 0, 420, -1 )
+        , 0, 420, -1, "Rico Finkbeiner", false, listOf() )
         )
 
     LazyColumn {
