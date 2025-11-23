@@ -25,6 +25,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SuggestionChip
@@ -49,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import org.example.project.components.Avatar
+import org.example.project.components.VoteState
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
@@ -222,11 +224,17 @@ fun PostDetailsView(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(
-                        painter = painterResource(Res.drawable.arrow_upward_24px),
-                        contentDescription = "Arrow up",
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier.size(40.dp),
+                    ) {
+                        Icon(
+                            painter = painterResource(Res.drawable.arrow_upward_24px),
+                            contentDescription = "Arrow up",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = upVote.toString(),
@@ -235,11 +243,16 @@ fun PostDetailsView(
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Spacer(modifier = Modifier.width(12.dp))
-                    Icon(
-                        painter = painterResource(Res.drawable.arrow_downward_24px),
-                        contentDescription = "Arrow down",
-                        tint = MaterialTheme.colorScheme.primary
-                    )
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier.size(40.dp),
+                    ) {
+                        Icon(
+                            painter = painterResource(Res.drawable.arrow_downward_24px),
+                            contentDescription = "Arrow down",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
                         text = downVote.toString(),
