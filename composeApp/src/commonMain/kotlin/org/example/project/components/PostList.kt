@@ -21,7 +21,9 @@ import org.example.project.apiClient.Client.createRating
 import org.example.project.generated.Res
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.martinsried
+import org.example.project.generated.olympia
 import org.example.project.model.ExtendedPost
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.time.Clock
@@ -35,17 +37,22 @@ fun escapeWhitespace(s: String): String {
 @Preview
 @Composable
 fun PostList(modifier: Modifier, navController: NavHostController){
+    val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried), 1 to painterResource(Res.drawable.olympia))
     //val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
-    val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried und noch sdfasdfasdfa asdfsa sadf", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
+    val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
         TimeZone.currentSystemDefault())
-        , 0, 420, -1 ))
+        , 0, 420, -1 ),
+        ExtendedPost(1, "Olympia Bürgerentscheid", "LETS GOOOOO", Clock.System.now().toLocalDateTime(
+            TimeZone.currentSystemDefault())
+            , 0, 420, -1 )
+        )
     LazyColumn {
         items(myData) { item ->
             PostCard(
                 title = item.title,
                 description = item.description,
                 username = "Landeshauptstadt München",
-                mainImage = painterResource(Res.drawable.martinsried),
+                mainImage = imageMap.get(item.id),
                 isOfficial = true,
                 voteState = when (item.ownRating) {
                     1  -> VoteState.UP

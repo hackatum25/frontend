@@ -50,7 +50,9 @@ import org.example.project.generated.arrow_upward_24px
 import org.example.project.generated.change_lang
 import org.example.project.generated.compose_multiplatform
 import org.example.project.generated.hello
+import org.example.project.generated.martinsried
 import org.example.project.generated.nest_clock_farsight_analog_24px
+import org.example.project.generated.olympia
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -70,6 +72,8 @@ fun PostDetailView(
     downVote: Int,
     createDate: Instant = Clock.System.now(),
 ) {
+    val imageMap = mapOf("Erweiterung der U6 nach Martinsried" to painterResource(Res.drawable.martinsried), "Olympia Bürgerentscheid" to painterResource(Res.drawable.olympia))
+
         Card(
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth(),
@@ -93,14 +97,16 @@ fun PostDetailView(
                         .padding(top = 40.dp)
                         .padding(horizontal = 16.dp)
                 ) {
-                    Image(
-                        painter = painterResource(Res.drawable.compose_multiplatform), // Your image resource
-                        contentDescription = "Header image",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
-                        contentScale = ContentScale.Crop
-                    )
+                    if(imageMap[title] !=null){
+                        Image(
+                            painter = imageMap[title]!!,
+                            contentDescription = "Header image",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
                 }
 
                 Row(
