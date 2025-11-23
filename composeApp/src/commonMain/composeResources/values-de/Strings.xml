@@ -37,4 +37,5 @@
 
 
     <string name="post_publish">Veröffentlichen</string>
+    <string name="post_cancel">Verwerfen</string>
 </resources>

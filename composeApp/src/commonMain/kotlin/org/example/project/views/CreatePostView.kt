@@ -1,20 +1,33 @@
 package org.example.project.views
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.input.TextFieldLineLimits
+import androidx.compose.foundation.text.input.TextFieldLineLimits.SingleLine
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -34,60 +47,139 @@ import org.example.project.generated.Res
 import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.logout_24px
+import org.example.project.generated.post_cancel
 import org.example.project.generated.post_publish
 import org.example.project.generated.send_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@Preview
 @Composable
-fun CreatePostView(navController: NavHostController,isNavbarVisible: MutableState<Boolean>){
+fun CreatePostView(
+    navController: NavHostController,
+    isNavbarVisible: MutableState<Boolean>
+) {
     DisposableEffect(Unit) {
-        onDispose {
-            isNavbarVisible.value = true
-        }
+        onDispose { isNavbarVisible.value = true }
     }
 
-    Column{
-        Row(verticalAlignment = Alignment.CenterVertically){
-            Avatar(
-                avatar = painterResource(Res.drawable.city_munich_logo)
-            )
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("Landeshauptstadt München")
-            Button(
-                onClick = {
-                    navController.navigate("feed")
-                },
-            ) {
-                    Icon(
-                        painter = painterResource(Res.drawable.send_24px),
-                        contentDescription = "Logout",
-                    )
-            }
-        }
-        OutlinedTextField(
-            state = rememberTextFieldState(""),
-            lineLimits = TextFieldLineLimits.MultiLine(),
-            placeholder = { Text("") },
-            label = { Text("Enter Title") },
-            modifier = Modifier.padding(20.dp)
-        )
-        TagFilter()
-        OutlinedTextField(
-            state = rememberTextFieldState(""),
-            lineLimits = TextFieldLineLimits.MultiLine(),
-            placeholder = { Text("") },
-            label = { Text("Enter Description") },
-            modifier = Modifier.padding(20.dp)
-        )
-    }
-
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .wrapContentSize(Alignment.Center)
+            .background(MaterialTheme.colorScheme.background)
+            .padding(16.dp)
     ) {
+        // Top app row
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Avatar(
+                    avatar = painterResource(Res.drawable.city_munich_logo),
+                    modifier = Modifier.size(48.dp)
+                )
+                Spacer(modifier = Modifier.width(12.dp))
+                Column {
+                    Text(
+                        text = "Landeshauptstadt München",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = "Create a new post",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // Card with form content
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            shape = RoundedCornerShape(12.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+        ) {
+            Column(modifier = Modifier.padding(16.dp)) {
+                // Title input
+                OutlinedTextField(
+                    state = rememberTextFieldState(""),
+                    lineLimits = TextFieldLineLimits.SingleLine,
+                    placeholder = { Text("") },
+                    label = { Text("Enter Title") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp)
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Select Tags",
+                    style = MaterialTheme.typography.titleSmall,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+
+                // Tag filter area with card background
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp)
+                ) {
+                    Column(modifier = Modifier.padding(12.dp)) {
+                        TagFilter()
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Description input
+                OutlinedTextField(
+                    state = rememberTextFieldState(""),
+                    lineLimits = TextFieldLineLimits.Default,
+                    placeholder = { Text("") },
+                    label = { Text("Enter Description") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(min = 120.dp)
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+
+                // Actions row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    TextButton(
+                        onClick = { navController.navigate("feed") },
+                    ) {
+                        Text(stringResource(Res.string.post_cancel))
+                    }
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Button(
+                        onClick = { navController.navigate("feed") },
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                painter = painterResource(Res.drawable.logout_24px),
+                                contentDescription = "Publish",
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(stringResource(Res.string.post_publish))
+                        }
+                    }
+                }
+            }
+        }
     }
 }
