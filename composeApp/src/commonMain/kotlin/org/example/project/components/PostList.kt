@@ -40,9 +40,12 @@ fun PostList(modifier: Modifier, navController: NavHostController){
     val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
         TimeZone.currentSystemDefault())
         , 0, 420, -1 ),
-        ExtendedPost(1, "Olympia Bürgerentscheid", "LETS GOOOOO", Clock.System.now().toLocalDateTime(
+        ExtendedPost(1, "Olympia Bürgerentscheid", "Der Freistaat Bayern unterstützt die Bewerbung Münchens für die Olympischen und Paralympischen Sommerspiele ab 2036", Clock.System.now().toLocalDateTime(
             TimeZone.currentSystemDefault())
-            , 0, 420, -1 )
+            , 0, 420, -1 ),
+                ExtendedPost(2, "Weniger Hausaufgaben", "LETS GOOOOO", Clock.System.now().toLocalDateTime(
+            TimeZone.currentSystemDefault())
+        , 0, 420, -1 )
         )
 
     LazyColumn {
