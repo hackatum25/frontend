@@ -22,6 +22,7 @@ import kotlin.time.ExperimentalTime
 fun FeedView(navController: NavHostController) {
     val selectedTags: SnapshotStateList<Tag> = remember { mutableStateListOf() }
     val postFilter: (ExtendedPost) -> Boolean = { post ->
+        println(selectedTags)
         selectedTags.isEmpty() || post.tags.any { it in selectedTags }
     }
     Column(

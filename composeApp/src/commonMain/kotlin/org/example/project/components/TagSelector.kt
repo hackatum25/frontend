@@ -26,6 +26,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -40,19 +41,11 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TagSelector(
-    tags: List<Tag> = listOf(Tag.ENVIRONMENT, Tag.EVENTS, Tag.TRANSPORT),
-    selectedTags: SnapshotStateList<Tag> = remember { mutableStateListOf() }
+    tags: List<Tag> = listOf(Tag.OFFICIAL, Tag.ENVIRONMENT, Tag.EVENTS, Tag.TRANSPORT, Tag.FINANCE),
+    selectedTags: SnapshotStateList<Tag> = remember { tags.toMutableStateList() } // keep this single instance
 ) {
     val items = tags.map { FilterItem.fromTag(it) }
 
-    // Ensure selectedTags reflects incoming tags
-    LaunchedEffect(tags) {
-        selectedTags.clear()
-        selectedTags.addAll(tags)
-    }
-
-    // Shared selection state: mutable list of Tag
-    val selectedTags = remember { mutableStateListOf<Tag>(Tag.ENVIRONMENT, Tag.EVENTS, Tag.TRANSPORT) } // MutableList-like observable state
 
     val scrollState = rememberScrollState()
     var containerWidth by remember { mutableStateOf(0) }
@@ -69,10 +62,7 @@ fun TagSelector(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items.forEach { item ->
-                TagChip(
-                    item = item,
-                    selectedTags = selectedTags
-                )
+                TagChip(item = item, selectedTags = selectedTags)
             }
         }
 
@@ -106,18 +96,14 @@ fun TagSelector(
 @Composable
 fun TagChip(item: FilterItem, selectedTags: SnapshotStateList<Tag>) {
     val tag = FilterItem.toTag(item) // convert to Tag
-    val isSelected = remember { derivedStateOf { selectedTags.contains(tag) } }
+    val isSelected = selectedTags.contains(tag)
 
     FilterChip(
-        onClick = {
-            if (selectedTags.contains(tag)) {
-                selectedTags.remove(tag)
-            } else {
-                selectedTags.add(tag)
-            }
+		   onClick = {
+            if (selectedTags.contains(tag)) selectedTags.remove(tag) else selectedTags.add(tag)
         },
         label = { Text(stringResource(item.title)) },
-        selected = !isSelected.value,
+        selected = isSelected,
         leadingIcon = {
             Icon(
                 painter = painterResource(item.icon),
