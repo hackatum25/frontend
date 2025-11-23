@@ -63,6 +63,7 @@ import org.example.project.generated.hello
 import org.example.project.generated.labels
 import org.example.project.generated.martinsried
 import org.example.project.generated.nest_clock_farsight_analog_24px
+import org.example.project.generated.olympia
 import org.example.project.generated.person_24px
 import org.example.project.generated.verified_24px
 import org.jetbrains.compose.resources.painterResource
@@ -112,6 +113,7 @@ fun PostDetailsView(
     createDate: Instant,
     navController: NavHostController
     ) {
+    val imageMap = mapOf("Erweiterung der U6 nach Martinsried" to painterResource(Res.drawable.martinsried), "Olympia Bürgerentscheid" to painterResource(Res.drawable.olympia))
     val avatar: Painter = painterResource(Res.drawable.city_munich_logo)
     val username = "Landeshauptstadt München"
     val isOfficial = true
@@ -169,6 +171,17 @@ fun PostDetailsView(
                     .padding(top = 16.dp)
                     .padding(horizontal = 16.dp)
             ) {
+                if(imageMap[title] !=null){
+                    Image(
+                        painter = imageMap[title]!!,
+                        contentDescription = "Header image",
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                /*
                 Image(
                     painter = painterResource(Res.drawable.martinsried), // Your image resource
                     contentDescription = "Header image",
@@ -177,6 +190,7 @@ fun PostDetailsView(
                         .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp, bottomStart = 16.dp, bottomEnd = 16.dp)),
                     contentScale = ContentScale.Crop
                 )
+                 */
             }
 
             Row(
