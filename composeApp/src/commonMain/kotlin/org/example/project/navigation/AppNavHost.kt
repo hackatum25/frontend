@@ -9,14 +9,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.savedstate.read
-import kotlinx.coroutines.runBlocking
-import org.example.project.PostDetailsView
-import org.example.project.apiClient.Client
+import org.example.project.views.PostDetailsView
 import org.example.project.views.*
 import org.example.project.views.FeedView
 import org.example.project.views.ProfileView
 import kotlin.time.Clock
-import kotlin.time.Duration.Companion.days
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 

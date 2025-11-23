@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import org.example.project.components.Avatar
+import org.example.project.components.TagFilter
 import org.example.project.generated.Res
 import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
@@ -73,6 +74,7 @@ fun CreatePostView(navController: NavHostController,isNavbarVisible: MutableStat
             label = { Text("Enter Title") },
             modifier = Modifier.padding(20.dp)
         )
+        TagFilter()
         OutlinedTextField(
             state = rememberTextFieldState(""),
             lineLimits = TextFieldLineLimits.MultiLine(),
