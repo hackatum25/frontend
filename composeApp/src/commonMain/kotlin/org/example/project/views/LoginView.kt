@@ -23,7 +23,7 @@ import org.example.project.components.Avatar
 import org.example.project.generated.Res
 import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
-import org.example.project.model.LoginScreen
+import org.example.project.components.LoginScreen
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

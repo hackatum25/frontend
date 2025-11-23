@@ -1,4 +1,4 @@
-package org.example.project.model
+package org.example.project.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
