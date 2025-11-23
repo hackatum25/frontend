@@ -42,7 +42,7 @@ import kotlin.time.ExperimentalTime
 @Preview
 fun App(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-    val isNavbarVisible = remember { mutableStateOf(true) }
+    val isNavbarVisible = remember { mutableStateOf(false) }
 
     MobileAppTheme {
 

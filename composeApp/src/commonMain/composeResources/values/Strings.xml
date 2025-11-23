@@ -35,6 +35,7 @@
 
     <string name="labels">Labels</string>
     <string name="description">Description</string>
+    <string name="indPost">Your Posts</string>
 
     <string name="post_create_new">Create a new post</string>
     <string name="post_select_tags">Select Tags</string>

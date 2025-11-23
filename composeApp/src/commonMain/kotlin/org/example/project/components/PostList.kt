@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -33,11 +35,13 @@ fun escapeWhitespace(s: String): String {
 }
 
 @OptIn(ExperimentalTime::class)
-@Preview
 @Composable
-fun PostList(modifier: Modifier, navController: NavHostController){
+fun PostList(modifier: Modifier, navController: NavHostController, filter: (ExtendedPost) -> Boolean) {
+
+
     val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried), 1 to painterResource(Res.drawable.olympia))
-    //val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
+    val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
+    /*
     val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
         TimeZone.currentSystemDefault())
         , 0, 420, -1, "Stadt München", true, listOf(Tag.OFFICIAL, Tag.TRANSPORT)
@@ -50,9 +54,11 @@ fun PostList(modifier: Modifier, navController: NavHostController){
             TimeZone.currentSystemDefault())
         , 0, 420, -1, "Rico Finkbeiner", false, listOf() )
         )
+     */
+    val filtered = myData.filter { filter(it) }
 
     LazyColumn {
-        items(myData) { item ->
+        items(filtered) { item ->
             val voteState = remember { mutableStateOf(item.ownRating) }
             val votesCount = remember { mutableStateOf(item.upvoteCount - item.downvoteCount) }
 
@@ -66,9 +72,9 @@ fun PostList(modifier: Modifier, navController: NavHostController){
             PostCard(
                 title = item.title,
                 description = item.description,
-                username = "Landeshauptstadt München",
+                username = item.creatorUsername,
                 mainImage = imageMap.get(item.id),
-                isOfficial = true,
+                isOfficial = item.verified,
                 voteState = when (voteState.value) {
                     1  -> VoteState.UP
                     0  -> VoteState.NONE

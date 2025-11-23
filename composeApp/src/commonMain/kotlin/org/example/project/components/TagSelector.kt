@@ -18,10 +18,15 @@ import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -30,21 +35,25 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import org.example.project.model.Tag
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun TagFilter() {
-    val items = listOf(
-        FilterItem.Environment, FilterItem.Official,
-        FilterItem.Events, FilterItem.Finances, FilterItem.Transport
-    )
+fun TagSelector(
+    tags: List<Tag> = listOf(Tag.OFFICIAL, Tag.ENVIRONMENT, Tag.EVENTS, Tag.TRANSPORT, Tag.FINANCE),
+    selectedTags: SnapshotStateList<Tag> = remember { tags.toMutableStateList() } // keep this single instance
+) {
+    val items = tags.map { FilterItem.fromTag(it) }
+
+
     val scrollState = rememberScrollState()
     var containerWidth by remember { mutableStateOf(0) }
 
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .onGloballyPositioned { containerWidth = it.size.width }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .onGloballyPositioned { containerWidth = it.size.width }
     ) {
         Row(
             modifier = Modifier
@@ -52,10 +61,12 @@ fun TagFilter() {
                 .padding(horizontal = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items.forEach { AddItem(it) }
+            items.forEach { item ->
+                TagChip(item = item, selectedTags = selectedTags)
+            }
         }
 
-        // thumb
+        // thumb (unchanged)
         val max = (scrollState.maxValue).coerceAtLeast(1)
         val fraction = scrollState.value.toFloat() / max
         val thumbWidthFraction = 0.25f
@@ -83,21 +94,22 @@ fun TagFilter() {
 }
 
 @Composable
-fun AddItem(item: FilterItem) {
-    var selected by remember { mutableStateOf(false) }
+fun TagChip(item: FilterItem, selectedTags: SnapshotStateList<Tag>) {
+    val tag = FilterItem.toTag(item) // convert to Tag
+    val isSelected = selectedTags.contains(tag)
+
     FilterChip(
-        onClick = { selected = !selected },
-        label = {
-            Text(stringResource(item.title))
+		   onClick = {
+            if (selectedTags.contains(tag)) selectedTags.remove(tag) else selectedTags.add(tag)
         },
-        selected = selected,
+        label = { Text(stringResource(item.title)) },
+        selected = isSelected,
         leadingIcon = {
-                Icon(
-                    painter = painterResource(item.icon),
-                    modifier = Modifier.size(FilterChipDefaults.IconSize),
-                    contentDescription = "",
-                )
+            Icon(
+                painter = painterResource(item.icon),
+                modifier = Modifier.size(FilterChipDefaults.IconSize),
+                contentDescription = null
+            )
         }
     )
 }
-

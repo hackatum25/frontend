@@ -2,7 +2,6 @@ package org.example.project.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,42 +12,32 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.input.TextFieldLineLimits
-import androidx.compose.foundation.text.input.TextFieldLineLimits.SingleLine
-import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.runBlocking
 import org.example.project.apiClient.Client
 import org.example.project.components.Avatar
-import org.example.project.components.TagFilter
+import org.example.project.components.TagSelector
 import org.example.project.generated.Res
-import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.logout_24px
 import org.example.project.generated.post_cancel
@@ -57,11 +46,10 @@ import org.example.project.generated.post_enter_description
 import org.example.project.generated.post_enter_title
 import org.example.project.generated.post_publish
 import org.example.project.generated.post_select_tags
-import org.example.project.generated.send_24px
 import org.example.project.model.Post
+import org.example.project.model.Tag
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CreatePostView(
@@ -70,6 +58,7 @@ fun CreatePostView(
 ) {
     val title = remember { mutableStateOf("") }
     val description = remember {mutableStateOf("")}
+    val selectedTags: SnapshotStateList<Tag> = remember { mutableStateListOf() }
 
     DisposableEffect(Unit) {
         onDispose { isNavbarVisible.value = true }
@@ -147,7 +136,7 @@ fun CreatePostView(
                         .padding(bottom = 8.dp)
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
-                        TagFilter()
+                        TagSelector(selectedTags = selectedTags)
                     }
                 }
 
@@ -174,7 +163,6 @@ fun CreatePostView(
                 ) {
                     TextButton(
                         onClick = {
-                            runBlocking {Client.post(Post(title.value, description.value, listOf()))}
                             navController.navigate("feed") },
                     ) {
                         Text(stringResource(Res.string.post_cancel))
@@ -182,7 +170,7 @@ fun CreatePostView(
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
                         onClick = {
-
+                            runBlocking {Client.post(Post(title.value, description.value, selectedTags.toList()))}
                             navController.navigate("feed") },
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
