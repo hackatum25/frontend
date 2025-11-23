@@ -55,7 +55,7 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
         , 0, 420, -1, "Rico Finkbeiner", false, listOf() )
         )
      */
-    val filtered = myData.filter { filter(it) }
+    val filtered = myData.filter { filter(it) }.sortedByDescending { p -> p.upvoteCount-p.downvoteCount }
 
     LazyColumn {
         items(filtered) { item ->
