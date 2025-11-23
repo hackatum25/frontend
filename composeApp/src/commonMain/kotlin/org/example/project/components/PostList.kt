@@ -91,7 +91,10 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
                     0  -> VoteState.NONE
                     -1 -> VoteState.DOWN
                     else -> VoteState.NONE},
-                avatar = avatarMap[item.id] ?: painterResource(Res.drawable.jetbrains_logo),
+                avatar = if (item.creatorUsername.equals("City of Munich"))
+                        painterResource(Res.drawable.city_munich_logo)
+                else
+                    painterResource(Res.drawable.jetbrains_logo),
                 createdAt = item.createdAt.toInstant(TimeZone.currentSystemDefault()),
                 modifier = modifier.padding(bottom = 9.dp),
                 votesCount = votesCount.value,
