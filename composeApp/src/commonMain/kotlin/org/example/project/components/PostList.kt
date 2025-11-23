@@ -20,11 +20,13 @@ import kotlinx.datetime.toLocalDateTime
 import org.example.project.apiClient.Client
 import org.example.project.apiClient.Client.createRating
 import org.example.project.generated.Res
+import org.example.project.generated.bikes
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.eisbach
 import org.example.project.generated.jetbrains_logo
 import org.example.project.generated.martinsried
 import org.example.project.generated.olympia
+import org.example.project.generated.subway
 import org.example.project.model.ExtendedPost
 import org.example.project.model.Tag
 import org.jetbrains.compose.resources.painterResource
@@ -40,7 +42,13 @@ fun escapeWhitespace(s: String): String {
 @Composable
 fun PostList(modifier: Modifier, navController: NavHostController, filter: (ExtendedPost) -> Boolean) {
     val avatarMap = mapOf(7 to painterResource(Res.drawable.city_munich_logo), 1 to painterResource(Res.drawable.jetbrains_logo))
-    val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried), 1 to painterResource(Res.drawable.olympia), 2 to painterResource(Res.drawable.eisbach))
+    val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried),
+        1 to painterResource(Res.drawable.olympia),
+        2 to painterResource(Res.drawable.eisbach),
+        3 to painterResource(Res.drawable.subway),
+        4 to painterResource(Res.drawable.bikes),
+        4 to painterResource(Res.drawable.martinsried),
+        )
 
     val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
     /*
