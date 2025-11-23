@@ -122,7 +122,7 @@ fun PostDetailsView(
             Row(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .padding(top = 55.dp)
+                    .padding(top = 5.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
