@@ -66,7 +66,7 @@ fun PostList(modifier: Modifier, navController: NavHostController){
             PostCard(
                 title = item.title,
                 description = item.description,
-                username = "Landeshauptstadt München",
+                username = item.creatorUsername,
                 mainImage = imageMap.get(item.id),
                 isOfficial = true,
                 voteState = when (voteState.value) {
