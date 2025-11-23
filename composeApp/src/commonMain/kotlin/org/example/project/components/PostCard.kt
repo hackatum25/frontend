@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.navigation.NavHostController
 import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
@@ -107,9 +106,6 @@ fun PostCard(
         modifier = modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp,
-        ),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
         ),
     ) {
         Column(modifier = Modifier.clickable(onClick = { onCardClick()})) {
