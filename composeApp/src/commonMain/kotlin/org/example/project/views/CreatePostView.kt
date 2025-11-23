@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -31,6 +32,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.runBlocking
@@ -115,6 +118,10 @@ fun CreatePostView(
                     onValueChange = { newTitle: String ->  title.value = newTitle },
                     placeholder = { Text("") },
                     label = { Text(text = stringResource(Res.string.post_enter_title)) },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Next
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 12.dp)
@@ -148,6 +155,9 @@ fun CreatePostView(
                     onValueChange = { newDesc: String ->  description.value = newDesc },
                     placeholder = { Text("") },
                     label = { Text(stringResource(Res.string.post_enter_description)) },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 120.dp)

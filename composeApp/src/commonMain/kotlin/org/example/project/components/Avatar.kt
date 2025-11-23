@@ -13,10 +13,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.draw.clip
+import org.example.project.generated.Res
+import org.example.project.generated.jetbrains_logo
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 @Preview
-fun Avatar(modifier: Modifier = Modifier, avatar: Painter){
+fun Avatar(modifier: Modifier = Modifier, avatar: Painter = painterResource(Res.drawable.jetbrains_logo)) {
     Image(
         painter = avatar,
         contentDescription = "Avatar",

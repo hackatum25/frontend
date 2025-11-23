@@ -1,6 +1,7 @@
 package org.example.project.navigation
 
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -22,7 +23,9 @@ fun TopNavigation(navController: NavHostController) {
     TopAppBar(
         title = {
             if(item!=null){
-                Text(stringResource(item.title))
+                Text(stringResource(item.title),
+                    style = MaterialTheme.typography.titleLarge,
+                    )
             }
         }
     )

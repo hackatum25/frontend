@@ -45,6 +45,7 @@ import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.logout_24px
 import org.example.project.generated.indPost
+import org.example.project.generated.jetbrains_logo
 import org.example.project.generated.martinsried
 import org.example.project.generated.olympia
 import org.example.project.model.ExtendedPost
@@ -74,7 +75,7 @@ fun ProfileView(navController: NavHostController) {
         ) {
             Avatar(
                 modifier = Modifier.size(150.dp),
-                avatar = painterResource(Res.drawable.city_munich_logo)
+                avatar = painterResource(Res.drawable.jetbrains_logo)
             )
 
             Text(
@@ -111,53 +112,6 @@ fun ProfileView(navController: NavHostController) {
                 modifier, navController,
                 filter = {post -> post.creatorUsername == targetUsername},
             )
-            /*
-            LazyColumn {
-                items(userPosts) { item ->
-                    val voteState = remember { mutableStateOf(item.ownRating) }
-                    val votesCount = remember { mutableStateOf(item.upvoteCount - item.downvoteCount) }
-
-                    fun setRating(ratingVal: Int) {
-                        val oldVal = voteState.value ?: 0
-                        MainScope().launch { createRating(item.id, ratingVal) }
-                        voteState.value = ratingVal
-                        votesCount.value += ratingVal - oldVal
-                    }
-
-                    val modifier = Modifier
-                    PostCard(
-                        title = item.title,
-                        description = item.description,
-                        username = item.creatorUsername,
-                        mainImage = imageMap.get(item.id),
-                        isOfficial = true,
-                        voteState = when (voteState.value) {
-                            1 -> VoteState.UP
-                            0 -> VoteState.NONE
-                            -1 -> VoteState.DOWN
-                            else -> VoteState.NONE
-                        },
-                        avatar = painterResource(Res.drawable.city_munich_logo),
-                        createdAt = item.createdAt.toInstant(TimeZone.currentSystemDefault()),
-                        modifier = modifier.padding(bottom = 9.dp),
-                        votesCount = votesCount.value,
-                        onUpClick = { setRating(1) },
-                        onDownClick = { setRating(-1) },
-                        onCardClick = {
-                            val tags = item.tags.map { it.name }
-                                .fold("", { acc, str -> if (acc.isEmpty()) str else "${acc},${str}" })
-                            navController.navigate(
-                                "postDetails/${escapeWhitespace(item.title)}/${escapeWhitespace(item.description)}/${tags}/${item.upvoteCount}/${item.downvoteCount}/${
-                                    item.createdAt.toInstant(
-                                        TimeZone.currentSystemDefault()
-                                    ).toEpochMilliseconds()
-                                }/${escapeWhitespace(item.creatorUsername)}"
-                            )
-                        },
-                    )
-                }
-            }
-             */
         }
     }
 }

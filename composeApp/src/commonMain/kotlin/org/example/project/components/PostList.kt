@@ -21,6 +21,8 @@ import org.example.project.apiClient.Client
 import org.example.project.apiClient.Client.createRating
 import org.example.project.generated.Res
 import org.example.project.generated.city_munich_logo
+import org.example.project.generated.eisbach
+import org.example.project.generated.jetbrains_logo
 import org.example.project.generated.martinsried
 import org.example.project.generated.olympia
 import org.example.project.model.ExtendedPost
@@ -37,9 +39,9 @@ fun escapeWhitespace(s: String): String {
 @OptIn(ExperimentalTime::class)
 @Composable
 fun PostList(modifier: Modifier, navController: NavHostController, filter: (ExtendedPost) -> Boolean) {
+    val avatarMap = mapOf(7 to painterResource(Res.drawable.city_munich_logo), 1 to painterResource(Res.drawable.jetbrains_logo))
+    val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried), 1 to painterResource(Res.drawable.olympia), 2 to painterResource(Res.drawable.eisbach))
 
-
-    val imageMap = mapOf(0 to painterResource(Res.drawable.martinsried), 1 to painterResource(Res.drawable.olympia))
     val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}
     /*
     val myData: List<ExtendedPost> = listOf(ExtendedPost(0, "Erweiterung der U6 nach Martinsried", "Der U-Bahnhof Martinsried ist ein in Bau befindlicher U-Bahnhof auf dem Gemeindegebiet von Planegg", Clock.System.now().toLocalDateTime(
@@ -68,6 +70,7 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
                 voteState.value = ratingVal
                 votesCount.value += ratingVal - oldVal
             }
+            val avatar = avatarMap[item.id]
 
             PostCard(
                 title = item.title,
@@ -80,7 +83,7 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
                     0  -> VoteState.NONE
                     -1 -> VoteState.DOWN
                     else -> VoteState.NONE},
-                avatar = painterResource(Res.drawable.city_munich_logo),
+                avatar = avatarMap[item.id] ?: painterResource(Res.drawable.jetbrains_logo),
                 createdAt = item.createdAt.toInstant(TimeZone.currentSystemDefault()),
                 modifier = modifier.padding(bottom = 9.dp),
                 votesCount = votesCount.value,
