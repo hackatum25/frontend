@@ -74,7 +74,7 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
                 description = item.description,
                 username = item.creatorUsername,
                 mainImage = imageMap.get(item.id),
-                isOfficial = true,
+                isOfficial = item.verified,
                 voteState = when (voteState.value) {
                     1  -> VoteState.UP
                     0  -> VoteState.NONE
