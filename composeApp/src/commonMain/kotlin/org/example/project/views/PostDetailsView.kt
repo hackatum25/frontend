@@ -50,6 +50,7 @@ import org.example.project.generated.bikes
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.description
 import org.example.project.generated.eisbach
+import org.example.project.generated.jetbrains_logo
 import org.example.project.generated.labels
 import org.example.project.generated.martinsried
 import org.example.project.generated.nest_clock_farsight_analog_24px
@@ -111,8 +112,11 @@ fun PostDetailsView(
         "District commitee of Schwabing" to painterResource(Res.drawable.bikes),
         "Fully autonomous subways" to painterResource(Res.drawable.subway),
         "Closure of the Eisbachwelle" to painterResource(Res.drawable.eisbach))
-    val avatar: Painter = painterResource(Res.drawable.city_munich_logo)
-    val isOfficial = true
+    val avatar: Painter = if (author.equals("City of Munich"))
+            painterResource(Res.drawable.city_munich_logo)
+        else
+            painterResource(Res.drawable.jetbrains_logo)
+    val isOfficial = false
     val voteState = remember { mutableStateOf(myVote) }
     val upvotesCount = remember { mutableStateOf(upVote) }
     val downvotesCount = remember { mutableStateOf(downVote) }
