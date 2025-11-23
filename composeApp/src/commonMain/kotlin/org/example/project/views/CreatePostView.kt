@@ -32,6 +32,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -41,6 +43,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import kotlinx.coroutines.runBlocking
+import org.example.project.apiClient.Client
 import org.example.project.components.Avatar
 import org.example.project.components.TagFilter
 import org.example.project.generated.Res
@@ -54,6 +58,7 @@ import org.example.project.generated.post_enter_title
 import org.example.project.generated.post_publish
 import org.example.project.generated.post_select_tags
 import org.example.project.generated.send_24px
+import org.example.project.model.Post
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -63,6 +68,9 @@ fun CreatePostView(
     navController: NavHostController,
     isNavbarVisible: MutableState<Boolean>
 ) {
+    val title = remember { mutableStateOf("") }
+    val description = remember {mutableStateOf("")}
+
     DisposableEffect(Unit) {
         onDispose { isNavbarVisible.value = true }
     }
@@ -114,12 +122,10 @@ fun CreatePostView(
             Column(modifier = Modifier.padding(16.dp)) {
                 // Title input
                 OutlinedTextField(
-                    state = rememberTextFieldState(""),
-                    lineLimits = TextFieldLineLimits.SingleLine,
+                    value = title.value,
+                    onValueChange = { newTitle: String ->  title.value = newTitle },
                     placeholder = { Text("") },
-                    label = { Text(
-                        text = stringResource(Res.string.post_enter_title),
-) },
+                    label = { Text(text = stringResource(Res.string.post_enter_title)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 12.dp)
@@ -149,8 +155,8 @@ fun CreatePostView(
 
                 // Description input
                 OutlinedTextField(
-                    state = rememberTextFieldState(""),
-                    lineLimits = TextFieldLineLimits.Default,
+                    value = description.value,
+                    onValueChange = { newDesc: String ->  description.value = newDesc },
                     placeholder = { Text("") },
                     label = { Text(stringResource(Res.string.post_enter_description)) },
                     modifier = Modifier
@@ -167,13 +173,17 @@ fun CreatePostView(
                     horizontalArrangement = Arrangement.End
                 ) {
                     TextButton(
-                        onClick = { navController.navigate("feed") },
+                        onClick = {
+                            runBlocking {Client.post(Post(title.value, description.value, listOf()))}
+                            navController.navigate("feed") },
                     ) {
                         Text(stringResource(Res.string.post_cancel))
                     }
                     Spacer(modifier = Modifier.width(8.dp))
                     Button(
-                        onClick = { navController.navigate("feed") },
+                        onClick = {
+
+                            navController.navigate("feed") },
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
