@@ -45,6 +45,7 @@ object Client{
     suspend fun post(post: Post): Int {
         val response = client.post("${SERVER_URL}/posts") {
             setBody(post)
+            contentType(ContentType.Application.Json)
     }
         return response.status.value
     }
@@ -53,6 +54,7 @@ object Client{
         val rating = Rating(postId, ratingVal)
         client.post("${SERVER_URL}/posts/${postId}/vote") {
             setBody(rating)
+            contentType(ContentType.Application.Json)
         }
     }
 }

@@ -89,17 +89,19 @@ fun formatAge(time: Duration): String {
 @OptIn(ExperimentalTime::class)
 @Composable
 @Preview
-fun PostCard(modifier: Modifier = Modifier,
-         avatar: Painter = painterResource(Res.drawable.person_24px),
-         title: String, description: String, username: String,
-         isOfficial: Boolean = false,
-         mainImage: Painter? = null,
-         votesCount: Int = 420,
-         createdAt: Instant,
-         voteState: VoteState = VoteState.NONE,
-         onUpClick: (() -> Unit)? = null,
-         onDownClick: (() -> Unit)? = null,
-         onCardClick: (() -> Unit),) {
+fun PostCard(
+    modifier: Modifier = Modifier,
+    avatar: Painter = painterResource(Res.drawable.person_24px),
+    title: String, description: String, username: String,
+    isOfficial: Boolean = false,
+    mainImage: Painter? = null,
+    votesCount: Int = 420,
+    createdAt: Instant,
+    voteState: VoteState = VoteState.NONE,
+    onUpClick: (() -> Unit) = {},
+    onDownClick: (() -> Unit) = {},
+    onCardClick: (() -> Unit),
+) {
     Card(
         shape = MaterialTheme.shapes.small,
         modifier = modifier.fillMaxWidth(),
@@ -132,21 +134,21 @@ fun PostCard(modifier: Modifier = Modifier,
 
                 if(isOfficial){
                     SuggestionChip(
-    onClick = { /*...*/ },
-    label = {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                painter = painterResource(Res.drawable.verified_24px),
-                contentDescription = "verified icon",
-                modifier = Modifier.size(18.dp), // adjust to match text height
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-            Text(stringResource(Res.string.badge_official))
-        }
-    },
-    modifier = Modifier
-        .align(Alignment.CenterVertically)
-        .heightIn(min = 32.dp)
+                        onClick = { /*...*/ },
+                        label = {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    painter = painterResource(Res.drawable.verified_24px),
+                                    contentDescription = "verified icon",
+                                    modifier = Modifier.size(18.dp), // adjust to match text height
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(stringResource(Res.string.badge_official))
+                            }
+                        },
+                        modifier = Modifier
+                            .align(Alignment.CenterVertically)
+                            .heightIn(min = 32.dp)
                     )
                 }
             }
@@ -213,7 +215,7 @@ fun PostCard(modifier: Modifier = Modifier,
                 // Right side: up/down buttons
                 Row {
                     IconButton(
-                        onClick = {},
+                        onClick = onUpClick,
                         modifier = Modifier.size(40.dp),
                     ) {
                         Icon(
@@ -224,7 +226,7 @@ fun PostCard(modifier: Modifier = Modifier,
                     }
 
                     IconButton(
-                        onClick = {},
+                        onClick = onDownClick,
                         modifier = Modifier.size(40.dp),
                     ) {
                         Icon(
