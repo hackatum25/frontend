@@ -5,6 +5,7 @@
     <string name="app_language">App Sprache: %1$s</string>
     <string name="change_lang">Ändere Sprache</string>
     <string name="navbar_feed">Aktivitäten</string>
+    <string name="navbar_influence">Einfluss</string>
     <string name="navbar_create_post">Neuer Post</string>
     <string name="navbar_post_details">Post Details</string>
 

@@ -32,6 +32,9 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("com.google.maps.android:maps-compose:4.3.3")
+            implementation("org.maplibre.gl:android-sdk:12.1.3")
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)

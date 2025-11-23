@@ -18,6 +18,7 @@ fun BottomNavigation(navController: NavHostController) {
 
     val items = listOf(
         NavItem.Home,
+        NavItem.Influence,
         NavItem.Profile
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()

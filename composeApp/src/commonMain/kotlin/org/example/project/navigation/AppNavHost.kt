@@ -33,6 +33,9 @@ fun AppNavHost(navController: NavHostController = rememberNavController(), isNav
         composable("login"){
             LoginView(navController, isNavbarVisible)
         }
+            composable("influence"){
+                InfluenceView()
+            }
         /*
         composable(
             "posts/{postId}",

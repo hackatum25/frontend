@@ -6,6 +6,7 @@
     <string name="change_lang">Change Language</string>
 
     <string name="navbar_feed">Feed</string>
+    <string name="navbar_influence">Influence</string>
     <string name="navbar_profile">Profile</string>
     <string name="navbar_create_post">New Post</string>
     <string name="navbar_post_details">Post Details</string>
