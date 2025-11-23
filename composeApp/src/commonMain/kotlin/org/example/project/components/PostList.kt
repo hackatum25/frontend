@@ -47,7 +47,7 @@ fun PostList(modifier: Modifier, navController: NavHostController, filter: (Exte
         2 to painterResource(Res.drawable.eisbach),
         3 to painterResource(Res.drawable.subway),
         4 to painterResource(Res.drawable.bikes),
-        4 to painterResource(Res.drawable.martinsried),
+        5 to painterResource(Res.drawable.martinsried),
         )
 
     val myData: List<ExtendedPost> = runBlocking {Client.getPosts()}

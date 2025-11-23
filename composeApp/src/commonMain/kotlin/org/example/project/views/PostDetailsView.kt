@@ -46,13 +46,16 @@ import org.example.project.generated.Res
 import org.example.project.generated.arrow_downward_24px
 import org.example.project.generated.arrow_upward_24px
 import org.example.project.generated.badge_official
+import org.example.project.generated.bikes
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.description
+import org.example.project.generated.eisbach
 import org.example.project.generated.labels
 import org.example.project.generated.martinsried
 import org.example.project.generated.nest_clock_farsight_analog_24px
 import org.example.project.generated.olympia
 import org.example.project.generated.person_24px
+import org.example.project.generated.subway
 import org.example.project.generated.verified_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -103,7 +106,11 @@ fun PostDetailsView(
     myVote: Int,
     navController: NavHostController
     ) {
-    val imageMap = mapOf("Erweiterung der U6 nach Martinsried" to painterResource(Res.drawable.martinsried), "Olympia Bürgerentscheid" to painterResource(Res.drawable.olympia))
+    val imageMap = mapOf("U6 extension to Martinsried" to painterResource(Res.drawable.martinsried),
+        "Should Munich host the Olympic games?" to painterResource(Res.drawable.olympia),
+        "District commitee of Schwabing" to painterResource(Res.drawable.bikes),
+        "Fully autonomous subways" to painterResource(Res.drawable.subway),
+        "Closure of the Eisbachwelle" to painterResource(Res.drawable.eisbach))
     val avatar: Painter = painterResource(Res.drawable.city_munich_logo)
     val isOfficial = true
     val voteState = remember { mutableStateOf(myVote) }
