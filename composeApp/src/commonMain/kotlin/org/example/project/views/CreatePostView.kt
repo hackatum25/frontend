@@ -48,7 +48,11 @@ import org.example.project.generated.account_logout
 import org.example.project.generated.city_munich_logo
 import org.example.project.generated.logout_24px
 import org.example.project.generated.post_cancel
+import org.example.project.generated.post_create_new
+import org.example.project.generated.post_enter_description
+import org.example.project.generated.post_enter_title
 import org.example.project.generated.post_publish
+import org.example.project.generated.post_select_tags
 import org.example.project.generated.send_24px
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -89,7 +93,7 @@ fun CreatePostView(
                         style = MaterialTheme.typography.titleMedium
                     )
                     Text(
-                        text = "Create a new post",
+                        text = stringResource(Res.string.post_create_new),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -113,7 +117,9 @@ fun CreatePostView(
                     state = rememberTextFieldState(""),
                     lineLimits = TextFieldLineLimits.SingleLine,
                     placeholder = { Text("") },
-                    label = { Text("Enter Title") },
+                    label = { Text(
+                        text = stringResource(Res.string.post_enter_title),
+) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 12.dp)
@@ -121,7 +127,7 @@ fun CreatePostView(
 
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
-                    text = "Select Tags",
+                    text = stringResource(Res.string.post_select_tags),
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
@@ -146,7 +152,7 @@ fun CreatePostView(
                     state = rememberTextFieldState(""),
                     lineLimits = TextFieldLineLimits.Default,
                     placeholder = { Text("") },
-                    label = { Text("Enter Description") },
+                    label = { Text(stringResource(Res.string.post_enter_description)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .heightIn(min = 120.dp)
