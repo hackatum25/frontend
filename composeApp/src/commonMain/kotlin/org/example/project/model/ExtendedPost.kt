@@ -11,5 +11,8 @@ data class ExtendedPost(
     val createdAt: LocalDateTime,
     val upvoteCount: Int,
     val downvoteCount: Int,
-    val ownRating: Int?
+    val ownRating: Int?,
+    val creatorUsername: String,
+    val verified: Boolean,
+    val tags: List<Tag>
 )

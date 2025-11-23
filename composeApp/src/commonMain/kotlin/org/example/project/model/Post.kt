@@ -7,4 +7,5 @@ import kotlinx.serialization.Serializable
 data class Post(
     val title: String,
     val description: String,
+    val tags: List<Tag>,
 )
